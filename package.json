@@ -1,0 +1,33 @@
+{
+  "name": "fcs-web",
+  "version": "1.0.0",
+  "description": "",
+  "scripts": {
+    "dev": "parcel ./src/index.html",
+    "prettier": "prettier --write \"./**/*.{js,html,css,ts,tsx}\""
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/mash-up-kr/FCS-WEB.git"
+  },
+  "keywords": [],
+  "author": "",
+  "homepage": "https://github.com/mash-up-kr/FCS-WEB#readme",
+  "dependencies": {
+    "axios": "^0.19.2",
+    "react": "^16.13.1",
+    "react-dom": "^16.13.1",
+    "react-router-dom": "^5.2.0",
+    "styled-components": "^5.1.1"
+  },
+  "devDependencies": {
+    "@types/react": "^16.9.43",
+    "@types/react-dom": "^16.9.8",
+    "@types/react-router-dom": "^5.1.5",
+    "@types/styled-components": "^5.1.1",
+    "parcel-bundler": "^1.12.4",
+    "prettier": "^2.0.5",
+    "ts-loader": "^8.0.0",
+    "typescript": "^3.9.6"
+  }
+}
