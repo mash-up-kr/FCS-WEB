@@ -48,7 +48,8 @@
   "lint-staged": {
     "*.{ts,tsx}": [
       "yarn lint:fix",
-      "yarn prettier"
+      "yarn prettier",
+      "git add"
     ]
   },
   "husky": {
