@@ -13,5 +13,9 @@
     "strict": true /* Enable all strict type-checking options. */
   },
   "include": ["src/**/*"],
-  "exclude": ["node_modules"]
+  "exclude": ["node_modules"],
+  "baseUrl": ".",
+    "paths": {
+      "~/*": ["./src/*"]
+    }
 }

@@ -1,0 +1,46 @@
+{
+  "extends": [
+    "prettier",
+    "airbnb",
+    "airbnb/hooks",
+    "prettier/react",
+    "plugin:@typescript-eslint/recommended",
+    "prettier/@typescript-eslint",
+    "plugin:prettier/recommended"
+  ],
+  "parser": "@typescript-eslint/parser",
+  "plugins": ["@typescript-eslint", "prettier"],
+  "rules": {
+    "arrow-body-style": ["error", "as-needed"],
+    "import/order": "off",
+    "import/no-extraneous-dependencies": ["error", { "devDependencies": ["**/*.stories.tsx", "**/*.test.js"] }],
+    "no-param-reassign": ["error", { "props": true, "ignorePropertyModificationsFor": ["draft"] }],
+    "no-unused-vars": ["error", { "vars": "all", "args": "after-used", "ignoreRestSiblings": false }],
+    "no-use-before-define": ["off"],
+    "padding-line-between-statements": ["error", { "blankLine": "always", "prev": "*", "next": "return" }],
+    "import/prefer-default-export": "off",
+    "jsx-a11y/label-has-associated-control": "off",
+    "prettier/prettier": "error",
+    "react/button-has-type": "off",
+    "react-hooks/exhaustive-deps": "warn",
+    "react-hooks/rules-of-hooks": "error",
+    "react/jsx-filename-extension": ["error", { "extensions": [".tsx"] }],
+    "react/jsx-fragments": "off",
+    "react/jsx-one-expression-per-line": "off",
+    "react/jsx-props-no-spreading": "off",
+    "react/prop-types": "off",
+    "react/react-in-jsx-scope": "off",
+    "sort-imports": "off",
+    "@typescript-eslint/no-use-before-define": ["error", { "variables": false, "functions": false }],
+    "@typescript-eslint/no-empty-interface": "off",
+    "import/extensions": "off",
+    "import/no-unresolved": "off",
+    "no-undef": "error",
+    "no-const-assign":"error"
+  },
+  "env": {
+    "browser": true,
+    "node": true,
+    "es6": true
+  }
+}
