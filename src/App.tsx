@@ -1,11 +1,16 @@
 import React from 'react';
-import { Header } from './components/common/Header';
 import GlobalStyle from './styles/GlobalStyle.ts';
+import { BrowserRouter, Route, Switch } from 'react-router-dom';
+import { MainPage } from './pages';
 
 const App: React.FC = () => (
   <>
     <GlobalStyle />
-    <Header />
+    <BrowserRouter>
+      <Switch>
+        <Route exact path="/" component={MainPage} />
+      </Switch>
+    </BrowserRouter>
   </>
 );
 
