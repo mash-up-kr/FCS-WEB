@@ -4,6 +4,7 @@ import { gray0, gray5, gray7, gray8, gray9, red, blue } from '../utils/color';
 import { Header } from '../components/common/Header';
 import SUN from '../assets/banner_sun.png';
 import { Feed } from '../components/Feed';
+import { UploadButton } from '../views/Main/components/UploadButton';
 
 const MainContainer: React.FC = () => {
   const [active, setActive] = useState(false);
@@ -25,6 +26,7 @@ const MainContainer: React.FC = () => {
         <WeatherSpan>미세먼지 매우 나쁨</WeatherSpan>
         <WeatherSpan>강수량 75mm</WeatherSpan>
         <Description>업데이트 6/21 오전 7:00</Description>
+        <StyledUploadButton>무더운 오늘, 당신의 옷은?</StyledUploadButton>
         <Thumbnail src={SUN} alt="banner-sun" />
       </Wrapper>
 
@@ -44,7 +46,7 @@ const Container = styled.div<{ active: boolean }>`
 const Wrapper = styled.div`
   position: relative;
   flex: 1;
-  padding: 36px 0px 25px 20px;
+  padding: 36px 20px 25px 20px;
   position: relative;
   background-color: ${gray0};
 `;
@@ -108,6 +110,10 @@ const WeatherSpan = styled.span`
 const Description = styled.span`
   font-size: 10px;
   color: ${gray5};
+`;
+
+const StyledUploadButton = styled(UploadButton)`
+  margin-top: 20px;
 `;
 
 export default MainContainer;
