@@ -56,7 +56,7 @@ const StyledHeader = styled.header<{ active: boolean }>`
 `;
 
 const StyledBadge = styled(Badge)`
-  margin: 8px 0px 8px 10px;
+  margin: 8px 10px 8px 0px;
 `;
 
 const FilterWrapper = styled.div`
