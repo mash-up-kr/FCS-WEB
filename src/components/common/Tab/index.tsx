@@ -3,9 +3,10 @@ import styled from 'styled-components';
 import tabHome from '../../../utils/assets/IC_Menu_Feed_normal.svg';
 import tabPlus from '../../../utils/assets/IC_Menu_Plus_normal.svg';
 import tabMypage from '../../../utils/assets/IC_Menu_My_normal.svg';
+import { white } from '../../../utils/color';
 // import { tabPlus, tabMypage } from '../../../views/assets';
 
-const Tab: React.FC = () => (
+export const Tab: React.FC = () => (
   <TabContainer>
     <Icon src={tabHome} alt="tabHome" />
     <Icon src={tabPlus} alt="tabPlus" />
@@ -22,9 +23,9 @@ const TabContainer = styled.div`
   justify-content: space-around;
   position: fixed;
   bottom: 0;
+  z-index: 99;
+  background-color: ${white};
 `;
 
 // TODO: Link나 A태그로 바꿔야할듯 하지만 지금은 바쁨 ㅠㅠ
 const Icon = styled.img``;
-
-export default Tab;
