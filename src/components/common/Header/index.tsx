@@ -42,6 +42,7 @@ const Wrapper = styled.div<{ active: boolean }>`
   top: 0px;
   position: ${(props) => props.active && 'absolute;'};
   transition: all 1s linear;
+  margin-bottom: ${(props) => props.active && '50px;'};
 `;
 
 const StyledHeader = styled.header<{ active: boolean }>`
