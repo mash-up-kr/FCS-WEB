@@ -41,7 +41,7 @@ const Wrapper = styled.div<{ active: boolean }>`
 
   position: absolute;
   top: ${(props) => (props.active ? 0 : '399px')};
-  transition: top 0.3s linear;
+  transition: top 0.15s linear;
   margin-bottom: ${(props) => props.active && '50px;'};
 `;
 
