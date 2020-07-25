@@ -13,4 +13,4 @@ export const BadgeColors = {
 export const BadgeTextColors = {
   [BadgeColor.ACTIVE]: white,
   [BadgeColor.DISABLED]: white,
-}  
+};
