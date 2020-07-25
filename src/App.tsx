@@ -1,13 +1,17 @@
-import React, { Fragment } from 'react';
-import UploadButton from './views/Main/Main';
-import Tab from './components/common/Tab';
+import React from 'react';
+import GlobalStyle from './styles/GlobalStyle.ts';
+import { BrowserRouter, Route, Switch } from 'react-router-dom';
+import { MainPage } from './pages';
 
 const App: React.FC = () => (
-  <Fragment>
-    <UploadButton />
-
-    <Tab />
-  </Fragment>
+  <>
+    <GlobalStyle />
+    <BrowserRouter>
+      <Switch>
+        <Route exact path="/" component={MainPage} />
+      </Switch>
+    </BrowserRouter>
+  </>
 );
 
 export default App;
