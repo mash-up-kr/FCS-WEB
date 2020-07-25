@@ -4,7 +4,7 @@ import { BadgeColors, BadgeTextColors } from './interface';
 
 interface BadgeProps {
   children: string;
-  color: 'primary' | 'mint' | 'gray';
+  color: 'active' | 'disabled';
 }
 
 export const Badge: React.FC<BadgeProps> = (props) => {

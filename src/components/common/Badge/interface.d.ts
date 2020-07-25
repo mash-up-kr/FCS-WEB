@@ -1,26 +1,16 @@
-// TODOLIST: 색깔 밖으로 뺴야할듯??
-
-const WHITE = '#fff';
-const BLACK = '#000';
-const COLOR_MINT = '#68e1de';
-const COLOR_GRAY = '#cfcfd0';
-
-// TODOLIST: 색깔 채우기
+import { white, keyColor, gray3 } from '../../../utils/color';
 
 export enum BadgeColor {
-  PRIMARY = 'primary',
-  MINT = 'mint',
-  GRAY = 'gray',
+  ACTIVE = 'active',
+  DISABLED = 'disabled',
 }
 
 export const BadgeColors = {
-  [BadgeColor.PRIMARY]: BLACK,
-  [BadgeColor.MINT]: COLOR_MINT,
-  [BadgeColor.GRAY]: COLOR_GRAY,
+  [BadgeColor.ACTIVE]: keyColor,
+  [BadgeColor.DISABLED]: gray3,
 };
 
 export const BadgeTextColors = {
-  [BadgeColor.PRIMARY]: WHITE,
-  [BadgeColor.MINT]: WHITE,
-  [BadgeColor.GRAY]: WHITE,
-};
+  [BadgeColor.ACTIVE]: white,
+  [BadgeColor.DISABLED]: white,
+}  
