@@ -4,33 +4,44 @@ import { Badge } from '../Badge';
 import { white } from '../../../utils/color';
 import { WeatherHeaderInformation } from './WeatherHeaderInformation';
 import FILTER from '../../../assets/icon_filter.png';
+import ReactSwipeEvents from 'react-swipe-events';
 
 interface HeaderProps {
   active: boolean;
-  onClick: () => void;
+  handleHeader: (headerActive: boolean) => void;
 }
 
 export const Header: React.FC<HeaderProps> = (props) => {
-  const { active, onClick, children, ...restProps } = props;
+  const { active, handleHeader, children, ...restProps } = props;
 
-  const handleClick = useCallback(() => {
-    onClick();
-  }, [onClick]);
+  const handleSwipedUp = useCallback(() => {
+    if (active) return;
+
+    handleHeader(true);
+  }, [active, handleHeader]);
+
+  const handleSwipedDown = useCallback(() => {
+    if (!active) return;
+
+    handleHeader(false);
+  }, [active, handleHeader]);
 
   return (
-    <Wrapper active={active}>
-      <StyledHeader active={active} onClick={handleClick} {...restProps}>
-        <WeatherHeaderInformation active={active} />
-        <FilterWrapper>
-          <CategoryWrapper>
-            <StyledBadge color="active">스포티</StyledBadge>
-            <StyledBadge color="active">클래식</StyledBadge>
-          </CategoryWrapper>
-          <Icon src={FILTER} alt="icon-filter" />
-        </FilterWrapper>
-      </StyledHeader>
-      {children}
-    </Wrapper>
+    <ReactSwipeEvents onSwipedUp={handleSwipedUp} onSwipedDown={handleSwipedDown}>
+      <Wrapper active={active}>
+        <StyledHeader active={active} {...restProps}>
+          <WeatherHeaderInformation active={active} />
+          <FilterWrapper>
+            <CategoryWrapper>
+              <StyledBadge color="active">스포티</StyledBadge>
+              <StyledBadge color="active">클래식</StyledBadge>
+            </CategoryWrapper>
+            <Icon src={FILTER} alt="icon-filter" />
+          </FilterWrapper>
+        </StyledHeader>
+        {children}
+      </Wrapper>
+    </ReactSwipeEvents>
   );
 };
 
@@ -41,7 +52,7 @@ const Wrapper = styled.div<{ active: boolean }>`
 
   top: 0px;
   position: ${(props) => props.active && 'absolute;'};
-  transition: all 1s linear;
+  transition: all 0.3s linear;
 `;
 
 const StyledHeader = styled.header<{ active: boolean }>`

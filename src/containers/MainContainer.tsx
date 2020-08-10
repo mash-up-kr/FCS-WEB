@@ -8,9 +8,9 @@ import { Feed } from '../components/Feed';
 const MainContainer: React.FC = () => {
   const [active, setActive] = useState(false);
 
-  const handleToggle = useCallback(() => {
-    setActive(!active);
-  }, [active, setActive]);
+  const handleHeader = useCallback((headerActive: boolean) => {
+    setActive(headerActive);
+  }, []);
 
   return (
     <Container active={active}>
@@ -28,7 +28,7 @@ const MainContainer: React.FC = () => {
         <Thumbnail src={SUN} alt="banner-sun" />
       </Wrapper>
 
-      <Header active={active} onClick={handleToggle}>
+      <Header active={active} handleHeader={handleHeader}>
         <Feed />
       </Header>
     </Container>
