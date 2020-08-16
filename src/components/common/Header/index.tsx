@@ -39,9 +39,10 @@ const Wrapper = styled.div<{ active: boolean }>`
   min-height: 70px;
   background-color: ${white};
 
-  top: 0px;
-  position: ${(props) => props.active && 'absolute;'};
-  transition: all 1s linear;
+  position: absolute;
+  top: ${(props) => (props.active ? 0 : '399px')};
+  transition: top 0.15s linear;
+  margin-bottom: ${(props) => props.active && '50px;'};
 `;
 
 const StyledHeader = styled.header<{ active: boolean }>`
@@ -55,7 +56,7 @@ const StyledHeader = styled.header<{ active: boolean }>`
 `;
 
 const StyledBadge = styled(Badge)`
-  margin: 8px 0px 8px 10px;
+  margin: 8px 10px 8px 0px;
 `;
 
 const FilterWrapper = styled.div`
