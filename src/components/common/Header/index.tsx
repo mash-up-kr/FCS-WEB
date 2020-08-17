@@ -4,6 +4,7 @@ import { Badge } from '../Badge';
 import { white } from '../../../utils/color';
 import { WeatherHeaderInformation } from './WeatherHeaderInformation';
 import FILTER from '../../../assets/icon_filter.png';
+import ReactSwipeEvents from 'react-swipe-events';
 
 interface HeaderProps {
   active: boolean;
@@ -19,16 +20,18 @@ export const Header: React.FC<HeaderProps> = (props) => {
 
   return (
     <Wrapper active={active}>
-      <StyledHeader active={active} onClick={handleClick} {...restProps}>
-        <WeatherHeaderInformation active={active} />
-        <FilterWrapper>
-          <CategoryWrapper>
-            <StyledBadge color="active">스포티</StyledBadge>
-            <StyledBadge color="active">클래식</StyledBadge>
-          </CategoryWrapper>
-          <Icon src={FILTER} alt="icon-filter" />
-        </FilterWrapper>
-      </StyledHeader>
+      <ReactSwipeEvents onSwipedUp={handleClick} onSwipedDown={handleClick}>
+        <StyledHeader active={active} {...restProps}>
+          <WeatherHeaderInformation active={active} />
+          <FilterWrapper>
+            <CategoryWrapper>
+              <StyledBadge color="active">스포티</StyledBadge>
+              <StyledBadge color="active">클래식</StyledBadge>
+            </CategoryWrapper>
+            <Icon src={FILTER} alt="icon-filter" />
+          </FilterWrapper>
+        </StyledHeader>
+      </ReactSwipeEvents>
       {children}
     </Wrapper>
   );
