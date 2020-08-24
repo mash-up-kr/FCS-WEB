@@ -2,6 +2,7 @@
   "name": "fcs-web",
   "version": "1.0.0",
   "description": "",
+  "private":"true",
   "scripts": {
     "dev": "parcel ./src/index.html",
     "prettier": "prettier --write --config ./.prettierrc \"**/*.{ts,tsx}\"",
