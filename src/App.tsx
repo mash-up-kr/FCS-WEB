@@ -10,7 +10,7 @@ const App: React.FC = () => (
     <BrowserRouter>
       <Switch>
         <RouteWithTabs exact path="/" component={MainPage} />
-        <Route path="/post" component={PostPage} />
+        <Route exact path="/post" component={PostPage} />
         <Route path="/post/date" component={ChooseDatePage} />
         <Route path="/post/location" component={ChooseLocationPage} />
       </Switch>
