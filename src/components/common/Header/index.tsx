@@ -1,4 +1,4 @@
-import React, { useCallback } from 'react';
+import React from 'react';
 import styled from 'styled-components';
 import { Badge } from '../Badge';
 import { white } from '../../../utils/color';
@@ -8,19 +8,16 @@ import ReactSwipeEvents from 'react-swipe-events';
 
 interface HeaderProps {
   active: boolean;
-  onClick: () => void;
+  onSwipeUp: () => void;
+  onSwipeDown: () => void;
 }
 
 export const Header: React.FC<HeaderProps> = (props) => {
-  const { active, onClick, children, ...restProps } = props;
-
-  const handleClick = useCallback(() => {
-    onClick();
-  }, [onClick]);
+  const { active, onSwipeUp, onSwipeDown, children, ...restProps } = props;
 
   return (
     <Wrapper active={active}>
-      <ReactSwipeEvents onSwipedUp={handleClick} onSwipedDown={handleClick}>
+      <ReactSwipeEvents onSwipedUp={onSwipeUp} onSwipedDown={onSwipeDown}>
         <StyledHeader active={active} {...restProps}>
           <WeatherHeaderInformation active={active} />
           <FilterWrapper>

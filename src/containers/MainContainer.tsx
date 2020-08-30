@@ -9,9 +9,17 @@ import { UploadButton } from '../views/Main/components/UploadButton';
 const MainContainer: React.FC = () => {
   const [active, setActive] = useState(false);
 
-  const handleToggle = useCallback(() => {
-    setActive(!active);
-  }, [active, setActive]);
+  const handleSwipeUp = useCallback(() => {
+    if (!active) {
+      setActive(true);
+    }
+  }, [active]);
+
+  const handleSwipeDown = useCallback(() => {
+    if (active) {
+      setActive(false);
+    }
+  }, [active]);
 
   return (
     <Container active={active}>
@@ -30,7 +38,7 @@ const MainContainer: React.FC = () => {
         <Thumbnail src={SUN} alt="banner-sun" />
       </Wrapper>
 
-      <Header active={active} onClick={handleToggle}>
+      <Header active={active} onSwipeUp={handleSwipeUp} onSwipeDown={handleSwipeDown}>
         <Feed />
       </Header>
     </Container>
