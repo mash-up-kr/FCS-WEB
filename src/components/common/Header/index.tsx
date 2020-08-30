@@ -1,34 +1,34 @@
-import React, { useCallback } from 'react';
+import React from 'react';
 import styled from 'styled-components';
 import { Badge } from '../Badge';
 import { white } from '../../../utils/color';
 import { WeatherHeaderInformation } from './WeatherHeaderInformation';
 import FILTER from '../../../assets/icon_filter.png';
+import ReactSwipeEvents from 'react-swipe-events';
 
 interface HeaderProps {
   active: boolean;
-  onClick: () => void;
+  onSwipeUp: () => void;
+  onSwipeDown: () => void;
 }
 
 export const Header: React.FC<HeaderProps> = (props) => {
-  const { active, onClick, children, ...restProps } = props;
-
-  const handleClick = useCallback(() => {
-    onClick();
-  }, [onClick]);
+  const { active, onSwipeUp, onSwipeDown, children, ...restProps } = props;
 
   return (
     <Wrapper active={active}>
-      <StyledHeader active={active} onClick={handleClick} {...restProps}>
-        <WeatherHeaderInformation active={active} />
-        <FilterWrapper>
-          <CategoryWrapper>
-            <StyledBadge color="active">스포티</StyledBadge>
-            <StyledBadge color="active">클래식</StyledBadge>
-          </CategoryWrapper>
-          <Icon src={FILTER} alt="icon-filter" />
-        </FilterWrapper>
-      </StyledHeader>
+      <ReactSwipeEvents onSwipedUp={onSwipeUp} onSwipedDown={onSwipeDown}>
+        <StyledHeader active={active} {...restProps}>
+          <WeatherHeaderInformation active={active} />
+          <FilterWrapper>
+            <CategoryWrapper>
+              <StyledBadge color="active">스포티</StyledBadge>
+              <StyledBadge color="active">클래식</StyledBadge>
+            </CategoryWrapper>
+            <Icon src={FILTER} alt="icon-filter" />
+          </FilterWrapper>
+        </StyledHeader>
+      </ReactSwipeEvents>
       {children}
     </Wrapper>
   );
