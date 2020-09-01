@@ -12,7 +12,7 @@ interface HeaderProps {
   onSwipeDown: () => void;
 }
 
-export const Header: React.FC<HeaderProps> = (props) => {
+export const Header: React.FC<HeaderProps> = props => {
   const { active, onSwipeUp, onSwipeDown, children, ...restProps } = props;
 
   return (
@@ -40,9 +40,9 @@ const Wrapper = styled.div<{ active: boolean }>`
   background-color: ${white};
 
   position: absolute;
-  top: ${(props) => (props.active ? 0 : '399px')};
+  top: ${props => (props.active ? 0 : '399px')};
   transition: top 0.15s linear;
-  margin-bottom: ${(props) => props.active && '50px;'};
+  margin-bottom: ${props => props.active && '50px;'};
 `;
 
 const StyledHeader = styled.header<{ active: boolean }>`
@@ -51,8 +51,8 @@ const StyledHeader = styled.header<{ active: boolean }>`
   padding: 23px 20px;
   background-color: ${white};
 
-  box-shadow: ${(props) => !props.active && '0 0 10px 0 rgba(47, 85, 148, 0.3);'};
-  border-radius: ${(props) => !props.active && '10px 10px 0 0;'};
+  box-shadow: ${props => !props.active && '0 0 10px 0 rgba(47, 85, 148, 0.3);'};
+  border-radius: ${props => !props.active && '10px 10px 0 0;'};
 `;
 
 const StyledBadge = styled(Badge)`

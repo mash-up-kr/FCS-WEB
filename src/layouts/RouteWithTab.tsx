@@ -11,7 +11,7 @@ interface Props extends RouteProps {
 const RouteWithHeader = ({ component: Component, ...restProps }: Props): JSX.Element => (
   <Route
     {...restProps}
-    render={(routeProps) => (
+    render={routeProps => (
       <Container>
         <Tab />
         <Component {...routeProps} />

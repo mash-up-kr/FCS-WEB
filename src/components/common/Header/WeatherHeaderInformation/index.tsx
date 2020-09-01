@@ -7,7 +7,7 @@ interface Props {
   active: boolean;
 }
 
-export const WeatherHeaderInformation: React.FC<Props> = React.memo((props) => {
+export const WeatherHeaderInformation: React.FC<Props> = React.memo(props => {
   const { active } = props;
 
   return (

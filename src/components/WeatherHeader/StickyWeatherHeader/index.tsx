@@ -8,7 +8,7 @@ export const StickyWeatherHeader = React.memo(() => {
   const headerRef = useRef<any>(null);
 
   const handler = useCallback((entries: IntersectionObserverEntry[]) => {
-    entries.forEach((entry) => {
+    entries.forEach(entry => {
       if (entry.isIntersecting) {
         setSticky(false);
       } else {
@@ -43,8 +43,8 @@ const StyledHeader = styled.header<{ sticky: boolean }>`
 
   
 
-  /* box-shadow: ${(props) => (!props.sticky ? '0 0 10px 0 rgba(47, 85, 148, 0.3);' : 'none')}; */
-  /* border-radius: ${(props) => (!props.sticky ? '10px 10px 0 0;' : 'none')}; */
+  /* box-shadow: ${props => (!props.sticky ? '0 0 10px 0 rgba(47, 85, 148, 0.3);' : 'none')}; */
+  /* border-radius: ${props => (!props.sticky ? '10px 10px 0 0;' : 'none')}; */
   padding: 23px 20px;
   position: sticky;
   z-index: 2;
