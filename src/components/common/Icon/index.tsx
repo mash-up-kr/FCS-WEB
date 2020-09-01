@@ -1,8 +1,9 @@
 import React from 'react';
 import * as icons from './icons';
+import styled from 'styled-components';
 
 export type IconType = keyof typeof icons;
-export const iconTypes: IconType[] = Object.keys(icons) as IconType[];
+export const iconTypes: IconType[] = Object.keys(icons) as any[];
 
 export interface Props {
   icon: IconType;
@@ -15,5 +16,7 @@ export interface Props {
 export const Icon: React.FC<Props> = ({ icon, color, size, className, style, ...restProps }) => {
   const SVGIcon = icons[icon];
 
-  return <SVGIcon style={style} color={color} size={size} className={className} {...restProps} />;
+  return <StyledIcon style={style} color={color} width={size} className={className} {...restProps} src={SVGIcon} />;
 };
+
+const StyledIcon = styled.img``;
