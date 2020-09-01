@@ -3,7 +3,7 @@ import styled from 'styled-components';
 import { gray0, gray7 } from '../../../../utils/color';
 import PLUS from '../../../../assets/ic_plus_white.png';
 
-export const UploadButton: React.FC = (props) => {
+export const UploadButton: React.FC = props => {
   const { children, ...restProps } = props;
 
   return (
