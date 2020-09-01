@@ -1,68 +1,76 @@
-import React from 'react';
+import React, { useEffect, useRef, useCallback, useState } from 'react';
 import styled from 'styled-components';
-import { Badge } from '../Badge';
-import { white, gray5 } from '../../../utils/color';
-import { WeatherHeaderInformation } from './WeatherHeaderInformation';
-import FILTER from '../../../assets/icon_filter.png';
-import ReactSwipeEvents from 'react-swipe-events';
-import { Icon } from '../Icon';
+import { gray5, white } from '../../../utils/color';
 import { Description, Rectangle } from '../../../views/Main/MainCommonUI';
+import { Badge } from '../Badge';
+import { Icon } from '../Icon';
 
-interface HeaderProps {
-  active: boolean;
-  onSwipeUp: () => void;
-  onSwipeDown: () => void;
-}
+interface HeaderProps {}
 
 export const Header: React.FC<HeaderProps> = props => {
-  const { active, onSwipeUp, onSwipeDown, children, ...restProps } = props;
+  const { children, ...restProps } = props;
+  const headerRef = useRef<any>(null);
+  const [sticky, setSticky] = useState(false);
+
+  const handler = useCallback((entries: IntersectionObserverEntry[]) => {
+    entries.forEach(entry => {
+      if (entry.isIntersecting) {
+        setSticky(true);
+      } else {
+        setSticky(false);
+      }
+    });
+  }, []);
+
+  useEffect(() => {
+    const headerSectionObserver = new IntersectionObserver(handler, {
+      rootMargin: '0px 0px -100%',
+    });
+
+    headerSectionObserver.observe(headerRef.current);
+  }, [handler]);
 
   return (
-    <Wrapper active={active}>
-      <ReactSwipeEvents onSwipedUp={onSwipeUp} onSwipedDown={onSwipeDown}>
-        <StyledHeader active={active} {...restProps}>
-          <WeatherHeaderInformation active={active} />
-          <TopHeaderSection>
-            <WeatherSection>
-              <Icon icon="sun" />
-              <TempTitle>24°</TempTitle>
-              <TempDescription>28°</TempDescription>
-              <StyledRectangle />
-              <TempDescription>20°</TempDescription>
-            </WeatherSection>
-
-            <Icon icon="filter" />
-          </TopHeaderSection>
-
-          <CategoryWrapper>
-            <StyledBadge color="active">스포티</StyledBadge>
-            <StyledBadge color="active">클래식</StyledBadge>
-          </CategoryWrapper>
-        </StyledHeader>
-      </ReactSwipeEvents>
+    <Wrapper>
+      <StyledHeader sticky={sticky} ref={headerRef} {...restProps}>
+        <TopHeaderSection>
+          <WeatherSection>
+            <Icon icon="sun" />
+            <TempTitle>24°</TempTitle>
+            <TempDescription>28°</TempDescription>
+            <StyledRectangle />
+            <TempDescription>20°</TempDescription>
+          </WeatherSection>
+          <Icon icon="filter" />
+        </TopHeaderSection>
+        <CategoryWrapper>
+          <StyledBadge color="active">스포티</StyledBadge>
+          <StyledBadge color="active">클래식</StyledBadge>
+        </CategoryWrapper>
+      </StyledHeader>
       {children}
     </Wrapper>
   );
 };
 
-const Wrapper = styled.div<{ active: boolean }>`
+const Wrapper = styled.div`
   width: 100%;
   min-height: 70px;
   background-color: ${white};
-
   position: absolute;
-  top: ${props => (props.active ? 0 : '399px')};
+  top: 328px;
   transition: top 0.15s linear;
-  margin-bottom: ${props => props.active && '50px;'};
 `;
 
-const StyledHeader = styled.header<{ active: boolean }>`
+const StyledHeader = styled.header<{ sticky: boolean }>`
+  position: sticky;
+  top: 0px;
   width: 100%;
   min-height: 70px;
   background-color: ${white};
-
-  box-shadow: ${props => !props.active && '0 0 10px 0 rgba(47, 85, 148, 0.3);'};
-  border-radius: ${props => !props.active && '10px 10px 0 0;'};
+  box-shadow: ${props => (props.sticky ? 'none' : '0 0 10px 0 rgba(47, 85, 148, 0.3)')};
+  border-radius: ${props => (props.sticky ? 0 : '10px 10px 0 0')};
+  padding-top: 20px;
 `;
 
 const TopHeaderSection = styled.div`

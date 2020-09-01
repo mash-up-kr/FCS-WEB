@@ -32,11 +32,11 @@ const MainContentSection: React.FC = React.memo(() => (
 ));
 
 const MainContentContainer = styled.div`
-  position: relative;
-  flex: 1;
   padding: 36px 20px 25px 20px;
-  position: relative;
-  background-color: ${gray0};
+  position: fixed;
+  left: 0;
+  right: 0;
+  top: 0;
 `;
 
 const AreaName = styled.h2`
