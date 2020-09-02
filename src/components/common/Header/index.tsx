@@ -4,6 +4,7 @@ import { gray5, white } from '../../../utils/color';
 import { Description, Rectangle } from '../../../views/Main/MainCommonUI';
 import { Badge } from '../Badge';
 import { Icon } from '../Icon';
+import { PopupModal } from '../PopupModal';
 
 interface HeaderProps {}
 
@@ -41,7 +42,7 @@ export const Header: React.FC<HeaderProps> = props => {
             <StyledRectangle />
             <TempDescription>20°</TempDescription>
           </WeatherSection>
-          <Icon icon="filter" />
+          <PopupModal title="제목" opener={<Icon icon="filter" />}></PopupModal>
         </TopHeaderSection>
         <CategoryWrapper>
           <StyledBadge color="active">스포티</StyledBadge>
