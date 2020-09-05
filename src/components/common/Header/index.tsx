@@ -1,10 +1,11 @@
-import React, { useEffect, useRef, useCallback, useState } from 'react';
+import React, { useCallback, useEffect, useRef, useState } from 'react';
 import styled from 'styled-components';
 import { gray5, white } from '../../../utils/color';
-import { Description, Rectangle } from '../../../views/Main/MainCommonUI';
+import { Description, Rectangle, TextButton } from '../../../views/Main/MainCommonUI';
 import { Badge } from '../Badge';
 import { Icon } from '../Icon';
 import { PopupModal } from '../PopupModal';
+import { Tabs } from '../Tabs';
 
 interface HeaderProps {}
 
@@ -12,6 +13,11 @@ export const Header: React.FC<HeaderProps> = props => {
   const { children, ...restProps } = props;
   const headerRef = useRef<any>(null);
   const [sticky, setSticky] = useState(false);
+
+  const tabData = [
+    { title: '스타일', content: <></> },
+    { title: '날씨', content: <></> },
+  ];
 
   const handler = useCallback((entries: IntersectionObserverEntry[]) => {
     entries.forEach(entry => {
@@ -42,7 +48,9 @@ export const Header: React.FC<HeaderProps> = props => {
             <StyledRectangle />
             <TempDescription>20°</TempDescription>
           </WeatherSection>
-          <PopupModal title="제목" opener={<Icon icon="filter" />}></PopupModal>
+          <PopupModal rightBtn={<TextButton>적용하기</TextButton>} opener={<Icon icon="filter" />} divider>
+            <Tabs data={tabData} />
+          </PopupModal>
         </TopHeaderSection>
         <CategoryWrapper>
           <StyledBadge color="active">스포티</StyledBadge>

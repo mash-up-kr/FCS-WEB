@@ -1,16 +1,18 @@
 import React, { useState, useMemo, useCallback, useEffect } from 'react';
 import styled from 'styled-components';
-import { white, gray8 } from '../../../utils/color';
+import { white, gray8, gray1 } from '../../../utils/color';
 
 interface Props {
   title?: string;
   leftBtn?: React.ReactElement<{ style: React.CSSProperties }>;
   rightBtn?: React.ReactElement<{ style: React.CSSProperties }>;
   opener?: React.ReactElement<{ onClick: () => void }>;
+  divider?: boolean;
+  children: any;
 }
 
 export const PopupModal = React.memo<Props>(props => {
-  const { opener, children, leftBtn, rightBtn, title, ...restProps } = props;
+  const { opener, children, leftBtn, rightBtn, title, divider, ...restProps } = props;
 
   const showModal = useCallback(() => {
     setVisible(true);
@@ -61,11 +63,12 @@ export const PopupModal = React.memo<Props>(props => {
     <>
       {clonedOpener}
       <Dialog visible={visible} {...restProps}>
-        <HeaderSection>
+        <HeaderSection divider={divider}>
           {clonedLeftBtn}
           <Title>{title}</Title>
           {clonedRightBtn}
         </HeaderSection>
+        {children}
       </Dialog>
     </>
   );
@@ -83,10 +86,12 @@ const Dialog = styled.div<{ visible: boolean }>`
   transition: all 225ms ease-out;
 `;
 
-const HeaderSection = styled.div`
+const HeaderSection = styled.div<{ divider: boolean | undefined }>`
   display: flex;
   justify-content: space-between;
   padding: 12px 20px 12px 26px;
+
+  ${props => props.divider && `border-bottom: 1px solid ${gray1}`}
 `;
 
 const Title = styled.p`
