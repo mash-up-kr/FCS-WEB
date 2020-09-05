@@ -1,11 +1,12 @@
 import React, { useCallback, useEffect, useRef, useState } from 'react';
 import styled from 'styled-components';
-import { gray5, white } from '../../../utils/color';
+import { gray5, white, keyColor } from '../../../utils/color';
 import { Description, Rectangle, TextButton } from '../../../views/Main/MainCommonUI';
 import { Badge } from '../Badge';
 import { Icon } from '../Icon';
 import { PopupModal } from '../PopupModal';
 import { Tabs } from '../Tabs';
+import { MainFilterSection } from '../../../views/Main/MainFilterSection';
 
 interface HeaderProps {}
 
@@ -15,7 +16,7 @@ export const Header: React.FC<HeaderProps> = props => {
   const [sticky, setSticky] = useState(false);
 
   const tabData = [
-    { title: '스타일', content: <></> },
+    { title: '스타일', content: <MainFilterSection /> },
     { title: '날씨', content: <></> },
   ];
 
@@ -48,7 +49,13 @@ export const Header: React.FC<HeaderProps> = props => {
             <StyledRectangle />
             <TempDescription>20°</TempDescription>
           </WeatherSection>
-          <PopupModal rightBtn={<TextButton>적용하기</TextButton>} opener={<Icon icon="filter" />} divider>
+          <PopupModal
+            title="필터"
+            leftBtn={<Icon icon="close" />}
+            rightBtn={<ApplyTextButton>적용</ApplyTextButton>}
+            opener={<Icon icon="filter" />}
+            divider
+          >
             <Tabs data={tabData} />
           </PopupModal>
         </TopHeaderSection>
@@ -117,4 +124,8 @@ const StyledRectangle = styled(Rectangle)`
   height: 1px;
   color: ${gray5};
   margin: 0px 2px;
+`;
+
+const ApplyTextButton = styled(TextButton)`
+  color: ${keyColor};
 `;
