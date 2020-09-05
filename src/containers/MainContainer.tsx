@@ -1,9 +1,9 @@
-import React, { useCallback, useState } from 'react';
+import React from 'react';
 import styled from 'styled-components';
 import { Header } from '../components/common/Header';
 import { Feed } from '../components/Feed';
-import MainContentSection from '../views/Main/MainContentSection';
 import { gray0 } from '../utils/color';
+import MainContentSection from '../views/Main/MainContentSection';
 
 const MainContainer: React.FC = () => {
   return (

@@ -1,8 +1,8 @@
 import React from 'react';
 import styled from 'styled-components';
-import { gray0, gray5, gray7, gray8, gray9, red, blue } from '../../utils/color';
 import SUN from '../../assets/banner_sun.png';
 import { Icon } from '../../components/common/Icon';
+import { blue, gray5, gray7, gray8, gray9, red } from '../../utils/color';
 import { Description, Rectangle } from './MainCommonUI';
 
 const MainContentSection: React.FC = React.memo(() => (
