@@ -7,12 +7,13 @@ interface Props {
   leftBtn?: React.ReactElement<{ style: React.CSSProperties }>;
   rightBtn?: React.ReactElement<{ style: React.CSSProperties }>;
   opener?: React.ReactElement<{ onClick: () => void }>;
+  opened?: boolean;
   divider?: boolean;
   children: any;
 }
 
 export const PopupModal = React.memo<Props>(props => {
-  const { opener, children, leftBtn, rightBtn, title, divider, ...restProps } = props;
+  const { opener, children, leftBtn, rightBtn, title, divider, opened, ...restProps } = props;
 
   const showModal = useCallback(() => {
     setVisible(true);
@@ -51,18 +52,22 @@ export const PopupModal = React.memo<Props>(props => {
     );
   }, [rightBtn]);
 
+  const modalOpened = useMemo(() => {
+    return opened ? opened : visible;
+  }, [opened, visible]);
+
   useEffect(() => {
-    if (visible) {
+    if (modalOpened) {
       document.body.style.overflow = 'hidden';
     } else {
       document.body.style.overflow = '';
     }
-  }, [visible]);
+  }, [modalOpened]);
 
   return (
     <>
       {clonedOpener}
-      <Dialog visible={visible} {...restProps}>
+      <Dialog visible={modalOpened} {...restProps}>
         <HeaderSection divider={divider}>
           {clonedLeftBtn}
           <Title>{title}</Title>

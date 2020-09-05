@@ -13,8 +13,9 @@ const RouteWithHeader = ({ component: Component, ...restProps }: Props): JSX.Ele
     {...restProps}
     render={routeProps => (
       <Container>
-        <Tab />
         <Component {...routeProps} />
+
+        <Tab />
       </Container>
     )}
   />
