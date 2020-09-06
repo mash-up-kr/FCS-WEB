@@ -1,36 +1,8 @@
 import React, { useContext, useEffect, useMemo } from 'react';
 import styled from 'styled-components';
 import { Badge } from '../../components/common/Badge';
-<<<<<<< HEAD
 import { StyleContext } from '../../stores/Styles';
 import { Description, Title } from './MainCommonUI';
-=======
-import { gray7 } from '../../utils/color';
-import { Description } from './MainCommonUI';
-import { Title } from './MainCommonUI';
-
-const filters = [
-  '캐주얼',
-  '스트릿',
-  '유스',
-  '오피스룩',
-  '유니크',
-  '심플',
-  '베이직',
-  '빈티지',
-  '페미닌',
-  '럭셔리',
-  '스쿨룩',
-  '포멀',
-  '시크',
-  '스포츠',
-  '댄디',
-  '모던',
-  '로맨틱',
-  '캠퍼스룩',
-  '힙합',
-];
->>>>>>> feat: 메인 필터 옵션들 추가
 
 //TODO: getStyles 비지니스 로직에서 실행하기
 export const MainFilterSection = React.memo(() => {
