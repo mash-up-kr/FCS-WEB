@@ -11,8 +11,11 @@ export const gray6 = '#6b6c6e';
 export const gray7 = '#505153';
 export const gray8 = '#353537';
 export const gray9 = '#111114';
+export const gray10 = '#6b6c6e';
+export const gray11 = '#feea0f';
 
 export const red = '#ff6868';
 export const blue = '#3977de';
+export const yellow = '#feea0f';
 
 export const keyColor = '#68e1de';

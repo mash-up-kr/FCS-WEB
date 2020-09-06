@@ -2,7 +2,7 @@ import React from 'react';
 import styled from 'styled-components';
 import { UploadButton } from './components/UploadButton';
 
-import plus from '../../utils/assets/IC_Plus_White.svg';
+import plus from '../../assets/IC_Plus_White.svg';
 
 const Main: React.FC = () => (
   <UploadButton>

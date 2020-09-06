@@ -1,8 +1,8 @@
 import React from 'react';
 import styled from 'styled-components';
-import tabHome from '../../../utils/assets/IC_Menu_Feed_normal.svg';
-import tabPlus from '../../../utils/assets/IC_Menu_Plus_normal.svg';
-import tabMypage from '../../../utils/assets/IC_Menu_My_normal.svg';
+import tabHome from '../../../assets/IC_Menu_Feed_normal.svg';
+import tabPlus from '../../../assets/IC_Menu_Plus_normal.svg';
+import tabMypage from '../../../assets/IC_Menu_My_normal.svg';
 import { white } from '../../../utils/color';
 // import { tabPlus, tabMypage } from '../../../views/assets';
 
