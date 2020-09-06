@@ -84,20 +84,21 @@ const Dialog = styled.div<{ visible: boolean }>`
   bottom: 0;
   ${props => !props.visible && `transform: translateY(100%);`}
   transition: all 225ms ease-out;
+  overflow: scroll;
 `;
 
 const HeaderSection = styled.div<{ divider: boolean | undefined }>`
   display: flex;
   justify-content: space-between;
   padding: 12px 20px 12px 26px;
+  align-items: center;
 
   ${props => props.divider && `border-bottom: 1px solid ${gray1}`}
 `;
 
-const Title = styled.p`
+const Title = styled.div`
   font-size: 18px;
   color: ${gray8};
-  margin-left: auto;
-  margin-right: auto;
+
   font-weight: bold;
 `;
