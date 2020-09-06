@@ -1,4 +1,7 @@
 <<<<<<< HEAD
+<<<<<<< HEAD
+=======
+>>>>>>> feat: 메인 필터 옵션들 추가
 import React, { useState, useCallback } from 'react';
 import styled from 'styled-components';
 import { Title, Description } from './MainCommonUI';
@@ -11,6 +14,7 @@ export const MainWeatherFilterSection = React.memo(() => {
   const handleTempChange = useCallback((e: React.ChangeEvent<HTMLInputElement>) => {
     setTemp(e.target.value);
   }, []);
+<<<<<<< HEAD
 =======
 import React, { useCallback, useContext, useMemo } from 'react';
 import styled from 'styled-components';
@@ -60,6 +64,8 @@ export const MainWeatherFilterSection = React.memo<Props>(({ filter, setFilter }
     [filter, setFilter]
   );
 >>>>>>> feat/main-filter
+=======
+>>>>>>> feat: 메인 필터 옵션들 추가
 
   return (
     <Container>
@@ -71,6 +77,9 @@ export const MainWeatherFilterSection = React.memo<Props>(({ filter, setFilter }
       <WeatherDescription>어떤 날씨와 온도가 궁금하신가요?</WeatherDescription>
       <WeatherText>날씨</WeatherText>
 <<<<<<< HEAD
+<<<<<<< HEAD
+=======
+>>>>>>> feat: 메인 필터 옵션들 추가
       <WeatherSelectSection>
         <WeatherOption>
           <WeatherIcon icon="sun" />
@@ -98,6 +107,7 @@ export const MainWeatherFilterSection = React.memo<Props>(({ filter, setFilter }
         <Temperature>{`${temp}°`}</Temperature>
       </TempSection>
       <TempInputRange value={temp} onChange={handleTempChange} type="range" min={-50} max={50} step={1} />
+<<<<<<< HEAD
 =======
       <WeatherSelectSection>{weatherTypes}</WeatherSelectSection>
       <WeatherText>온도</WeatherText>
@@ -107,11 +117,14 @@ export const MainWeatherFilterSection = React.memo<Props>(({ filter, setFilter }
       </TempSection>
       <TempInputRange value={filter.temperature} onChange={handleTempChange} type="range" min={-50} max={50} step={1} />
 >>>>>>> feat/main-filter
+=======
+>>>>>>> feat: 메인 필터 옵션들 추가
       <TempPreviewSection>
         <TempPreviewText>-50°</TempPreviewText>
         <TempPreviewText>0°</TempPreviewText>
         <TempPreviewText>+50°</TempPreviewText>
       </TempPreviewSection>
+<<<<<<< HEAD
 <<<<<<< HEAD
       <TempDifferenceText>피드 허용 온도 오차범위</TempDifferenceText>
 =======
@@ -120,6 +133,9 @@ export const MainWeatherFilterSection = React.memo<Props>(({ filter, setFilter }
         <TempDiffCalculator tempDifference={filter.tempDifference} onTempDiffChange={handleTempDiffChange} />
       </TempDiffSection>
 >>>>>>> feat/main-filter
+=======
+      <TempDifferenceText>피드 허용 온도 오차범위</TempDifferenceText>
+>>>>>>> feat: 메인 필터 옵션들 추가
     </Container>
   );
 });
@@ -127,9 +143,12 @@ export const MainWeatherFilterSection = React.memo<Props>(({ filter, setFilter }
 const Container = styled.div`
   padding: 40px 20px;
 <<<<<<< HEAD
+<<<<<<< HEAD
 =======
   margin-bottom: 50px;
 >>>>>>> feat/main-filter
+=======
+>>>>>>> feat: 메인 필터 옵션들 추가
 `;
 
 const WeatherDescription = styled(Description)`
@@ -148,6 +167,7 @@ const WeatherSelectSection = styled.div`
   margin-top: 12px;
 `;
 
+<<<<<<< HEAD
 const WeatherOption = styled.div<{ active: boolean }>`
   display: flex;
   flex-direction: column;
@@ -163,17 +183,28 @@ const WeatherOption = styled.div<{ active: boolean }>`
     border-radius: 7px;
   background-color: #eaf5f5;
   `}
+=======
+const WeatherOption = styled.div`
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  font-size: 14px;
+  margin-right: 26px;
+>>>>>>> feat: 메인 필터 옵션들 추가
 `;
 
 const WeatherIcon = styled(Icon)`
   margin-bottom: 7px;
 `;
 
+<<<<<<< HEAD
 const WeatherStatusText = styled.div`
   font-size: 14px;
   color: ${gray5};
 `;
 
+=======
+>>>>>>> feat: 메인 필터 옵션들 추가
 const TempSection = styled.div`
   display: flex;
   align-items: center;
@@ -216,6 +247,7 @@ const TempPreviewText = styled(Description)`
   font-size: 14px;
 `;
 
+<<<<<<< HEAD
 const TempDiffSection = styled.div`
   display: flex;
   margin-top: 48px;
@@ -224,6 +256,10 @@ const TempDiffSection = styled.div`
 `;
 
 const TempDifferenceText = styled(Description)`
+=======
+const TempDifferenceText = styled(Description)`
+  margin-top: 48px;
+>>>>>>> feat: 메인 필터 옵션들 추가
   color: ${gray7};
   font-size: 14px;
 `;
