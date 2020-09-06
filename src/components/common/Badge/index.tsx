@@ -7,7 +7,7 @@ interface BadgeProps {
   color: 'active' | 'disabled';
 }
 
-export const Badge: React.FC<BadgeProps> = (props) => {
+export const Badge: React.FC<BadgeProps> = props => {
   const { color, children, ...restProps } = props;
 
   return (
@@ -21,9 +21,10 @@ const StyledBadge = styled.div<BadgeProps>`
   display: flex;
   align-items: center;
   justify-content: center;
-  width: 58px;
-  height: 24px;
-  background-color: ${(props) => BadgeColors[props.color]};
-  color: ${(props) => BadgeTextColors[props.color]};
+  background-color: ${props => BadgeColors[props.color]};
+  color: ${props => BadgeTextColors[props.color]};
   font-size: 12px;
+  padding: 6px 12px;
+  border-radius: 2px;
+  font-weight: bold;
 `;

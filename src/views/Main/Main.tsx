@@ -1,11 +1,11 @@
 import React from 'react';
 import styled from 'styled-components';
-import UploadButton from './components/UploadButton';
+import { UploadButton } from './components/UploadButton';
 
 import plus from '../../utils/assets/IC_Plus_White.svg';
 
 const Main: React.FC = () => (
-  <UploadButton icon={plus}>
+  <UploadButton>
     <ButtonText>무더운 오늘, 당신의 옷은?</ButtonText>
   </UploadButton>
 );

@@ -1,50 +1,54 @@
 {
-  "name": "fcs-web",
-  "version": "1.0.0",
-  "description": "",
-  "private":"true",
+  "name": "fcs",
+  "version": "0.1.0",
+  "private": true,
+  "dependencies": {
+    "@class101/eslint-config": "^2.3.1",
+    "@types/react-router-dom": "^5.1.5",
+    "axios": "^0.20.0",
+    "husky": "^4.2.5",
+    "lint-staged": "^10.2.13",
+    "react": "^16.13.1",
+    "react-dom": "^16.13.1",
+    "react-router-dom": "^5.2.0",
+    "react-scripts": "3.4.3",
+    "styled-components": "^5.1.1"
+  },
+  "devDependencies": {
+    "@class101/tslint-config": "^1.6.1",
+    "@testing-library/jest-dom": "^4.2.4",
+    "@testing-library/react": "^9.3.2",
+    "@testing-library/user-event": "^7.1.2",
+    "@types/jest": "^24.0.0",
+    "@types/node": "^12.0.0",
+    "@types/react": "^16.9.0",
+    "@types/react-dom": "^16.9.0",
+    "@types/styled-components": "^5.1.2",
+    "typescript": "~3.7.2"
+  },
   "scripts": {
-    "dev": "parcel ./src/index.html",
+    "start": "react-scripts start",
+    "build": "react-scripts build",
+    "test": "react-scripts test",
+    "eject": "react-scripts eject",
     "prettier": "prettier --write --config ./.prettierrc \"**/*.{ts,tsx}\"",
     "lint": "eslint \"./src/**/*.{ts,tsx}\"",
     "lint:fix": "eslint --fix \"./src/**/*.{ts,tsx}\""
   },
-  "repository": {
-    "type": "git",
-    "url": "git+https://github.com/mash-up-kr/FCS-WEB.git"
+  "eslintConfig": {
+    "extends": "react-app"
   },
-  "keywords": [],
-  "author": "",
-  "homepage": "https://github.com/mash-up-kr/FCS-WEB#readme",
-  "dependencies": {
-    "axios": "^0.19.2",
-    "react": "^16.13.1",
-    "react-dom": "^16.13.1",
-    "react-router-dom": "^5.2.0",
-    "styled-components": "^5.1.1"
-  },
-  "devDependencies": {
-    "@types/react": "^16.9.43",
-    "@types/react-dom": "^16.9.8",
-    "@types/react-router-dom": "^5.1.5",
-    "@types/styled-components": "^5.1.1",
-    "@typescript-eslint/eslint-plugin": "^3.7.0",
-    "@typescript-eslint/parser": "^3.7.0",
-    "babel-eslint": "^10.1.0",
-    "eslint": "^7.5.0",
-    "eslint-config-airbnb": "^18.2.0",
-    "eslint-config-prettier": "^6.11.0",
-    "eslint-plugin-import": "^2.22.0",
-    "eslint-plugin-jsx-a11y": "^6.3.1",
-    "eslint-plugin-prettier": "^3.1.4",
-    "eslint-plugin-react": "^7.20.3",
-    "eslint-plugin-react-hooks": "^4.0.8",
-    "husky": "^4.2.5",
-    "lint-staged": "^10.2.11",
-    "parcel-bundler": "^1.12.4",
-    "prettier": "^2.0.5",
-    "ts-loader": "^8.0.0",
-    "typescript": "^3.9.6"
+  "browserslist": {
+    "production": [
+      ">0.2%",
+      "not dead",
+      "not op_mini all"
+    ],
+    "development": [
+      "last 1 chrome version",
+      "last 1 firefox version",
+      "last 1 safari version"
+    ]
   },
   "lint-staged": {
     "*.{ts,tsx}": [
