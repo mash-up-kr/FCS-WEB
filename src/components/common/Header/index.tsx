@@ -15,6 +15,7 @@ export const Header: React.FC<HeaderProps> = props => {
   const { children, ...restProps } = props;
   const headerRef = useRef<any>(null);
   const [sticky, setSticky] = useState(false);
+  const [opened, setOpened] = useState(false);
 
   const tabData = [
     { title: '스타일', content: <MainFilterSection /> },
@@ -39,6 +40,14 @@ export const Header: React.FC<HeaderProps> = props => {
     headerSectionObserver.observe(headerRef.current);
   }, [handler]);
 
+  const openModal = useCallback(() => {
+    setOpened(true);
+  }, []);
+
+  const closeModal = useCallback(() => {
+    setOpened(false);
+  }, []);
+
   return (
     <Wrapper>
       <StyledHeader sticky={sticky} ref={headerRef} {...restProps}>
@@ -50,11 +59,12 @@ export const Header: React.FC<HeaderProps> = props => {
             <StyledRectangle />
             <TempDescription>20°</TempDescription>
           </WeatherSection>
+          <Icon icon="filter" onClick={openModal} />
           <PopupModal
+            opened={opened}
             title="필터"
-            leftBtn={<Icon icon="close" />}
-            rightBtn={<ApplyTextButton>적용</ApplyTextButton>}
-            opener={<Icon icon="filter" />}
+            leftBtn={<Icon icon="close" onClick={closeModal} />}
+            rightBtn={<ApplyTextButton onClick={closeModal}>적용</ApplyTextButton>}
             divider
           >
             <Tabs data={tabData} />
