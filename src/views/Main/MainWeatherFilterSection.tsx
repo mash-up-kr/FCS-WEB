@@ -3,6 +3,7 @@ import styled from 'styled-components';
 import { Title, Description } from './MainCommonUI';
 import { gray7, white, blue, red, gray9, gray3 } from '../../utils/color';
 import { Icon } from '../../components/common/Icon';
+import { TempDiffCalculator } from '../../components/common/TempDiffCalculator';
 
 export const MainWeatherFilterSection = React.memo(() => {
   const [temp, setTemp] = useState('24');
@@ -52,7 +53,10 @@ export const MainWeatherFilterSection = React.memo(() => {
         <TempPreviewText>0°</TempPreviewText>
         <TempPreviewText>+50°</TempPreviewText>
       </TempPreviewSection>
-      <TempDifferenceText>피드 허용 온도 오차범위</TempDifferenceText>
+      <TempDiffSection>
+        <TempDifferenceText>피드 허용 온도 오차범위</TempDifferenceText>
+        <TempDiffCalculator />
+      </TempDiffSection>
     </Container>
   );
 });
@@ -132,8 +136,14 @@ const TempPreviewText = styled(Description)`
   font-size: 14px;
 `;
 
-const TempDifferenceText = styled(Description)`
+const TempDiffSection = styled.div`
+  display: flex;
   margin-top: 48px;
+  align-items: center;
+  justify-content: space-between;
+`;
+
+const TempDifferenceText = styled(Description)`
   color: ${gray7};
   font-size: 14px;
 `;
