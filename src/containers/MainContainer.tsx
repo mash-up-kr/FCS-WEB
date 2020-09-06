@@ -17,7 +17,6 @@ const MainContainer: React.FC = () => {
 };
 
 const Container = styled.div`
-  height: 100vh;
   position: relative;
   background-color: ${gray0};
 `;

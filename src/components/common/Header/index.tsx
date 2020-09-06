@@ -77,6 +77,7 @@ const Wrapper = styled.div`
   position: absolute;
   top: 328px;
   transition: top 0.15s linear;
+  margin-bottom: 50px;
 `;
 
 const StyledHeader = styled.header<{ sticky: boolean }>`

@@ -59,6 +59,7 @@ export const MainWeatherFilterSection = React.memo(() => {
 
 const Container = styled.div`
   padding: 40px 20px;
+  margin-bottom: 50px;
 `;
 
 const WeatherDescription = styled(Description)`
