@@ -84,6 +84,7 @@ const Dialog = styled.div<{ visible: boolean }>`
   bottom: 0;
   ${props => !props.visible && `transform: translateY(100%);`}
   transition: all 225ms ease-out;
+  overflow: scroll;
 `;
 
 const HeaderSection = styled.div<{ divider: boolean | undefined }>`

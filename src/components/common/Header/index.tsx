@@ -7,6 +7,7 @@ import { Icon } from '../Icon';
 import { PopupModal } from '../PopupModal';
 import { Tabs } from '../Tabs';
 import { MainFilterSection } from '../../../views/Main/MainFilterSection';
+import { MainWeatherFilterSection } from '../../../views/Main/MainWeatherFilterSection';
 
 interface HeaderProps {}
 
@@ -17,7 +18,7 @@ export const Header: React.FC<HeaderProps> = props => {
 
   const tabData = [
     { title: '스타일', content: <MainFilterSection /> },
-    { title: '날씨', content: <></> },
+    { title: '날씨', content: <MainWeatherFilterSection /> },
   ];
 
   const handler = useCallback((entries: IntersectionObserverEntry[]) => {

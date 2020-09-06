@@ -14,6 +14,12 @@ export const Rectangle = styled.div`
   background-color: ${gray6};
 `;
 
+export const Title = styled.div`
+  font-size: 24px;
+  font-weight: bold;
+  line-height: 36px;
+`;
+
 export const TextButton = styled.button`
   background: none;
   border: none;

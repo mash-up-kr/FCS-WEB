@@ -1,8 +1,9 @@
 import React, { useMemo } from 'react';
 import styled from 'styled-components';
 import { Badge } from '../../components/common/Badge';
-import { gray7, keyColor } from '../../utils/color';
+import { gray7 } from '../../utils/color';
 import { Description } from './MainCommonUI';
+import { Title } from './MainCommonUI';
 
 const filters = [
   '캐주얼',
@@ -46,14 +47,7 @@ const Container = styled.div`
   padding: 40px 20px;
 `;
 
-const Title = styled.div`
-  font-size: 24px;
-  font-weight: bold;
-  line-height: 36px;
-`;
-
 const StyleDescription = styled(Description)`
-  color: ${gray7};
   margin-top: 5px;
   font-size: 14px;
 `;
