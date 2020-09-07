@@ -6,15 +6,18 @@ import { gray0, keyColor } from '../utils/color';
 import { Link } from 'react-router-dom';
 
 const PostContainer: React.FC = () => {
-  const [photo, setPhoto] = useState('https://via.placeholder.com/150/92c952');
+  const [photo, setPhoto] = useState();
+  const [preview, setPreview] = useState();
   const [date] = useState('20년 6월 21일 화요일');
   const [location] = useState('서울 용산구');
 
-  const addFile = (event: React.FormEvent<HTMLInputElement>): void => {
+  const addFile = (event: any): void => {
     const reader = new FileReader();
     const file = event.target.files[0];
+
     reader.onloadend = () => {
-      setPhoto(reader.result);
+      setPhoto(file);
+      setPreview(reader.result);
     };
     reader.readAsDataURL(file);
   };
@@ -22,7 +25,7 @@ const PostContainer: React.FC = () => {
   return (
     <Container>
       <PostHeader />
-      <UploadPhotoLabel htmlFor="file" photo={photo} />
+      <UploadPhotoLabel htmlFor="file" photo={preview} />
       <UploadPhotoInput id="file" type="file" name="photo" accept="image/*" onChange={addFile} />
       <UploadInfoArea>
         <DateInfoArea>
@@ -131,7 +134,7 @@ const UploadPhotoLabel = styled.label<{ photo: string }>`
     width: 100%;
     height: 100%;
   }
-  background-image: url(${(props) => props.photo});
+  background-image: url(${props => props.photo});
   background-size: 375px;
   display: inline-block;
   padding: 0.5em 0.75em;
