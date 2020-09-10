@@ -5,13 +5,15 @@ import { ButtonColors, ButtonTextColors } from './interface';
 interface ButtonProps {
   children: string;
   color: 'active' | 'disabled';
+  onClick?: ((event: React.MouseEvent<HTMLDivElement, MouseEvent>) => void) &
+    ((event: React.MouseEvent<HTMLButtonElement, MouseEvent>) => void);
 }
 
 export const Button: React.FC<ButtonProps> = props => {
-  const { color, children, ...restProps } = props;
+  const { color, onClick, children, ...restProps } = props;
 
   return (
-    <StyledButton color={color} {...restProps}>
+    <StyledButton color={color} onClick={onClick} {...restProps}>
       {children}
     </StyledButton>
   );

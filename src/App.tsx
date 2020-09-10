@@ -1,7 +1,7 @@
 import React from 'react';
 import GlobalStyle from './styles/GlobalStyle.ts';
 import { BrowserRouter, Switch, Route } from 'react-router-dom';
-import { MainPage, LoginPage, SignupPage } from './pages';
+import { MainPage, LoginPage, SignupPage, SignupSettingPage } from './pages';
 import RouteWithTabs from './layouts/RouteWithTab';
 
 const App: React.FC = () => (
@@ -10,8 +10,9 @@ const App: React.FC = () => (
     <BrowserRouter>
       <Switch>
         <RouteWithTabs exact path="/" component={MainPage} />
-        <Route exact path="/login" component={LoginPage} />
-        <Route exact path="/signup" component={SignupPage} />
+        <Route path="/login" component={LoginPage} />
+        <Route path="/signup/username" component={SignupPage} />
+        <Route path="/signup/style" component={SignupSettingPage} />
       </Switch>
     </BrowserRouter>
   </>

@@ -1,14 +1,16 @@
 import React, { useCallback, useState } from 'react';
+import { useHistory } from 'react-router-dom';
 import styled from 'styled-components';
 import { gray6, gray8 } from '../utils/color';
 import NameField from '../components/Signup';
 import Checkbox from '../components/Signup/CheckBox/Checkbox';
 import { Button } from '../components/common/Button';
-// import ActionBar from '../components/Signup/Actionbar/Actionbar';
+import SignupSettingContainer from './SignupSettingContainer';
 
 const SignupContainer: React.FC = () => {
   const [value, setValue] = useState('');
   const [checked, setChecked] = useState(false);
+  const [modalOpen, setModalOpen] = useState(false);
 
   const handleNameChange = useCallback((event: React.ChangeEvent<HTMLInputElement>): void => {
     setValue(event.target.value);
@@ -16,6 +18,13 @@ const SignupContainer: React.FC = () => {
   const handleCheckboxChange = useCallback((event: React.ChangeEvent<HTMLInputElement>): void => {
     setChecked(event.target.checked);
   }, []);
+
+  const history = useHistory();
+
+  const handleNextClick = (): void => {
+    history.push('/signup/style');
+  };
+
   return (
     <Container>
       {/* <ActionBar /> */}
@@ -32,11 +41,12 @@ const SignupContainer: React.FC = () => {
         <PolicyDetail>약관 상세보기</PolicyDetail>
       </NickNameContainer>
       {checked && value ? (
-        <StyledButton color="active">다음</StyledButton>
+        <StyledButton color="active" onClick={handleNextClick}>
+          다음
+        </StyledButton>
       ) : (
         <StyledButton color="disabled">다음</StyledButton>
       )}
-      {/* <StyledButton color="disabled">다음</StyledButton> */}
     </Container>
   );
 };
