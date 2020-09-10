@@ -2,6 +2,9 @@ import React, { useState } from 'react';
 import styled from 'styled-components';
 import KaKaoLogin from 'react-kakao-login';
 import APIKEY from '../../.env/KakaoAPIKEY';
+import { useHistory } from 'react-router-dom';
+
+import axios from 'axios';
 
 interface LoginButtonProps {
   icon: string;
@@ -10,10 +13,25 @@ interface LoginButtonProps {
 const LoginButton: React.FC<LoginButtonProps> = (props, loginHandler) => {
   const { icon, ...otherProps } = props;
   const [isLogin, setIsLogin] = useState(false);
+  const history = useHistory();
 
   const responseKaKao = (res: any) => {
     console.log(res);
+    console.log(res.profile.id);
     setIsLogin(true);
+    axios
+      .post('http://52.78.79.159:8080/api/users/sign-in', {
+        uid: res.profile.id,
+        authType: 'KAKAO',
+      })
+      .then(function(response) {
+        console.log(response);
+        history.push('/');
+      })
+      .catch(function(error) {
+        console.log(error);
+        history.push('/signup/username');
+      });
   };
 
   const responseFail = console.error;
