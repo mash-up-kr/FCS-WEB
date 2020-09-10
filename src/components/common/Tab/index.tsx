@@ -5,6 +5,7 @@ import tabPlus from '../../../utils/assets/IC_Menu_Plus_normal.svg';
 import tabMypage from '../../../utils/assets/IC_Menu_My_normal.svg';
 import { white } from '../../../utils/color';
 import { Link } from 'react-router-dom';
+import { url } from 'inspector';
 // import { tabPlus, tabMypage } from '../../../views/assets';
 
 export const Tab: React.FC = () => (

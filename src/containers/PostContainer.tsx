@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import styled from 'styled-components';
 import PostHeader from '../components/common/Header/PostHeader';
 import Dropdown from '../assets/ic_dropdown.png';
@@ -22,31 +22,17 @@ const PostContainer: React.FC = () => {
     reader.readAsDataURL(file);
   };
 
+  useEffect(() => {}, []);
+
   return (
-    <Container>
+    <Wrapper>
       <PostHeader />
-      <UploadPhotoLabel htmlFor="file" photo={preview} />
-      <UploadPhotoInput id="file" type="file" name="photo" accept="image/*" onChange={addFile} />
-      <UploadInfoArea>
-        <DateInfoArea>
-          {date}
-          <LinkArea to="/post/date">
-            <Icon src={Dropdown} />
-          </LinkArea>
-        </DateInfoArea>
-        <Line />
-        <LocationInfoArea>
-          {location}
-          <LinkArea to="/post/location">
-            <Icon src={Dropdown} />
-          </LinkArea>
-        </LocationInfoArea>
-      </UploadInfoArea>
-      <UploadTextArea>
-        <TextArea placeholder="문구를 입력해주세요..." required />
-      </UploadTextArea>
-      <BottomNavigator>다음</BottomNavigator>
-    </Container>
+      <Container>
+        <UploadPhotoLabel htmlFor="file" photo={preview} />
+        <UploadPhotoInput id="file" type="file" name="photo" accept="image/*" onChange={addFile} />
+        <TextArea placeholder="문구 입력..." required />
+      </Container>
+    </Wrapper>
   );
 };
 
@@ -64,66 +50,20 @@ const BottomNavigator = styled.div`
   color: ${gray0};
 `;
 
-const LinkArea = styled(Link)`
-  display: flex;
-`;
-
-const UploadTextArea = styled.div`
-  background-color: ${gray0};
-  display: flex;
-  flex-direction: column;
-`;
-
-const Line = styled.hr`
-  height: 26px;
-  width: 1px;
-  border-right: 1px;
-`;
-
-const Icon = styled.img``;
-
 const TextArea = styled.textarea`
-  background-color: ${gray0};
-  height: 126px;
   outline: none;
-  resize: none;
-  border: 0px;
-  margin: 20px;
+  display: flex;
   align-self: stretch;
-`;
-
-const DateInfoArea = styled.div`
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-  width: 185px;
-  height: 46px;
-  margin-left: 20px;
-  margin-right: 5px;
-  font-size: 14px;
-`;
-
-const LocationInfoArea = styled.div`
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-  width: 185px;
-  height: 46px;
-  margin-left: 21px;
-  margin-right: 20px;
-  font-size: 14px;
-`;
-
-const UploadInfoArea = styled.div`
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  width: 375px;
-  height: 46px;
+  border: 0px;
+  margin: 15px;
+  margin-top: 0px;
+  margin-right: 0px;
+  width: 100%;
 `;
 
 const UploadPhotoLabel = styled.label<{ photo: string }>`
-  width: 100%;
+  min-width: 60px;
+  height: 60px;
   ::after {
     content: '';
     display: block;
@@ -135,8 +75,8 @@ const UploadPhotoLabel = styled.label<{ photo: string }>`
     height: 100%;
   }
   background-image: url(${props => props.photo});
-  background-size: 375px;
-  display: inline-block;
+  background-size: 60px;
+  display: flex;
   padding: 0.5em 0.75em;
   color: #999;
   font-size: inherit;
@@ -163,9 +103,16 @@ const UploadPhotoInput = styled.input`
 
 const Container = styled.div`
   display: flex;
+  flex-direction: row;
+  align-self: stretch;
+  margin: 20px;
+  height: 100%;
+`;
+
+const Wrapper = styled.div`
+  display: flex;
   flex-direction: column;
   height: 100vh;
-  position: relative;
 `;
 
 export default PostContainer;
