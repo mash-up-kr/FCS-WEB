@@ -5,13 +5,14 @@ import { BadgeColors, BadgeTextColors } from './interface';
 interface BadgeProps {
   children: string;
   color: 'active' | 'disabled';
+  onClick?: () => void;
 }
 
 export const Badge: React.FC<BadgeProps> = props => {
-  const { color, children, ...restProps } = props;
+  const { color, children, onClick, ...restProps } = props;
 
   return (
-    <StyledBadge color={color} {...restProps}>
+    <StyledBadge onClick={onClick} color={color} {...restProps}>
       {children}
     </StyledBadge>
   );

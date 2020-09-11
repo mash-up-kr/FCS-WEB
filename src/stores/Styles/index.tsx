@@ -1,4 +1,4 @@
-import React, { createContext, useState, useCallback } from 'react';
+import React, { createContext, useState, useCallback, useEffect } from 'react';
 import api from '../../utils/apis';
 
 interface Styles {
@@ -23,6 +23,11 @@ const StyleProvider: React.FC = ({ children }) => {
 
   const getStyles = useCallback(async () => {
     const { data } = await api.getStyles();
+
+    //memo(@kirby): axios도 response 타입 만들기
+    // const generatedData = data.data.map((style: any) => ({ ...style, active: style.active ?? false }));
+    // setStyles(generatedData);
+
     setStyles(data.data);
   }, []);
 
