@@ -1,36 +1,48 @@
-import React, { useMemo } from 'react';
+import React, { useContext, useEffect, useMemo, useCallback } from 'react';
 import styled from 'styled-components';
 import { Badge } from '../../components/common/Badge';
-import { gray7 } from '../../utils/color';
-import { Description } from './MainCommonUI';
-import { Title } from './MainCommonUI';
+import { UserFilter } from '../../model/User';
+import { StyleContext } from '../../stores/Styles';
+import { Description, Title } from './MainCommonUI';
 
-const filters = [
-  '캐주얼',
-  '스트릿',
-  '유스',
-  '오피스룩',
-  '유니크',
-  '심플',
-  '베이직',
-  '빈티지',
-  '페미닌',
-  '럭셔리',
-  '스쿨룩',
-  '포멀',
-  '시크',
-  '스포츠',
-  '댄디',
-  '모던',
-  '로맨틱',
-  '캠퍼스룩',
-  '힙합',
-];
+interface Styles {
+  id: number;
+  name: string;
+}
 
-export const MainFilterSection = React.memo(() => {
-  const styles = useMemo(() => {
-    return filters.map(filter => <StyleBadge color="active">{filter}</StyleBadge>);
-  }, []);
+interface Props {
+  filter: UserFilter;
+  setFilter: (filter: UserFilter) => void;
+}
+
+//TODO: getStyles 비지니스 로직에서 실행하기
+export const MainFilterSection = React.memo<Props>(({ filter, setFilter }) => {
+  const { styles } = useContext(StyleContext);
+
+  //memo(@kirby): 코드가 매우 안습이므로 나중에 리팩토링을 하자
+  const toggleStyle = useCallback(
+    (style: Styles) => {
+      const isStyleActive = filter.styleIds.includes(style.id);
+      if (isStyleActive) {
+        setFilter({ ...filter, styleIds: filter.styleIds.filter(styleId => styleId !== style.id) });
+      } else {
+        setFilter({ ...filter, styleIds: [...filter.styleIds, style.id] });
+      }
+    },
+    [filter, setFilter]
+  );
+
+  const styleBadges = useMemo(() => {
+    return styles.map(style => {
+      const active = filter.styleIds.includes(style.id);
+
+      return (
+        <StyleBadge onClick={() => toggleStyle(style)} key={style.id} color={active ? 'active' : 'disabled'}>
+          {style.name}
+        </StyleBadge>
+      );
+    });
+  }, [filter.styleIds, styles, toggleStyle]);
 
   return (
     <Container>
@@ -38,7 +50,7 @@ export const MainFilterSection = React.memo(() => {
         닉네임 님의 스타일을 <br /> 알려주세요!
       </Title>
       <StyleDescription>오늘은 옷은 어떤 스타일의 옷을 입으실건가요?</StyleDescription>
-      <StyleSection>{styles}</StyleSection>
+      <StyleSection>{styleBadges}</StyleSection>
     </Container>
   );
 });

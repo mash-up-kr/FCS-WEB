@@ -1,15 +1,50 @@
-import React, { useState, useCallback } from 'react';
+import React, { useCallback, useContext, useMemo } from 'react';
 import styled from 'styled-components';
-import { Title, Description } from './MainCommonUI';
-import { gray7, white, blue, red, gray9, gray3 } from '../../utils/color';
 import { Icon } from '../../components/common/Icon';
+import { TempDiffCalculator } from '../../components/common/TempDiffCalculator';
+import { UserFilter, Weather, WeatherType } from '../../model/User';
+import { UserContext } from '../../stores/User';
+import { blue, gray3, gray5, gray7, red, white } from '../../utils/color';
+import { Description, Title } from './MainCommonUI';
 
-export const MainWeatherFilterSection = React.memo(() => {
-  const [temp, setTemp] = useState('24');
+interface Props {
+  filter: UserFilter;
+  setFilter: (filter: UserFilter) => void;
+}
 
-  const handleTempChange = useCallback((e: React.ChangeEvent<HTMLInputElement>) => {
-    setTemp(e.target.value);
-  }, []);
+export const MainWeatherFilterSection = React.memo<Props>(({ filter, setFilter }) => {
+  const { userFilterValue } = useContext(UserContext);
+
+  const handleSelectWeather = useCallback(
+    //memo(@kirby): 임시방편으로 any
+    (weather: any) => {
+      setFilter({ ...filter, weather });
+    },
+    [filter, setFilter]
+  );
+
+  const weatherTypes = useMemo(() => {
+    return Object.entries(Weather).map(([key, value]) => (
+      <WeatherOption onClick={() => handleSelectWeather(key)} active={key === filter.weather}>
+        <WeatherIcon icon="sun" />
+        <WeatherStatusText>{value}</WeatherStatusText>
+      </WeatherOption>
+    ));
+  }, [filter.weather, handleSelectWeather]);
+
+  const handleTempChange = useCallback(
+    (e: React.ChangeEvent<HTMLInputElement>) => {
+      setFilter({ ...filter, temperature: Number(e.target.value) });
+    },
+    [filter, setFilter]
+  );
+
+  const handleTempDiffChange = useCallback(
+    (tempDifference: number) => {
+      setFilter({ ...filter, tempDifference });
+    },
+    [filter, setFilter]
+  );
 
   return (
     <Container>
@@ -20,45 +55,29 @@ export const MainWeatherFilterSection = React.memo(() => {
       </Title>
       <WeatherDescription>어떤 날씨와 온도가 궁금하신가요?</WeatherDescription>
       <WeatherText>날씨</WeatherText>
-      <WeatherSelectSection>
-        <WeatherOption>
-          <WeatherIcon icon="sun" />
-          맑음
-        </WeatherOption>
-        <WeatherOption>
-          <WeatherIcon icon="sun" />
-          흐림
-        </WeatherOption>
-        <WeatherOption>
-          <WeatherIcon icon="sun" />비
-        </WeatherOption>
-        <WeatherOption>
-          <WeatherIcon icon="sun" />
-          우박
-        </WeatherOption>
-        <WeatherOption>
-          <WeatherIcon icon="sun" />
-          천둥
-        </WeatherOption>
-      </WeatherSelectSection>
+      <WeatherSelectSection>{weatherTypes}</WeatherSelectSection>
       <WeatherText>온도</WeatherText>
       <TempSection>
         <WeatherDescription>현재 설정온도</WeatherDescription>
-        <Temperature>{`${temp}°`}</Temperature>
+        <Temperature>{`${filter.temperature}°`}</Temperature>
       </TempSection>
-      <TempInputRange value={temp} onChange={handleTempChange} type="range" min={-50} max={50} step={1} />
+      <TempInputRange value={filter.temperature} onChange={handleTempChange} type="range" min={-50} max={50} step={1} />
       <TempPreviewSection>
         <TempPreviewText>-50°</TempPreviewText>
         <TempPreviewText>0°</TempPreviewText>
         <TempPreviewText>+50°</TempPreviewText>
       </TempPreviewSection>
-      <TempDifferenceText>피드 허용 온도 오차범위</TempDifferenceText>
+      <TempDiffSection>
+        <TempDifferenceText>피드 허용 온도 오차범위</TempDifferenceText>
+        <TempDiffCalculator tempDifference={filter.tempDifference} onTempDiffChange={handleTempDiffChange} />
+      </TempDiffSection>
     </Container>
   );
 });
 
 const Container = styled.div`
   padding: 40px 20px;
+  margin-bottom: 50px;
 `;
 
 const WeatherDescription = styled(Description)`
@@ -77,16 +96,30 @@ const WeatherSelectSection = styled.div`
   margin-top: 12px;
 `;
 
-const WeatherOption = styled.div`
+const WeatherOption = styled.div<{ active: boolean }>`
   display: flex;
   flex-direction: column;
   align-items: center;
+  justify-content: space-between;
   font-size: 14px;
-  margin-right: 26px;
+  margin-right: 15px;
+  padding: 10px 8px 5px;
+
+  ${props =>
+    props.active &&
+    `
+    border-radius: 7px;
+    background-color: #eaf5f5;
+  `}
 `;
 
 const WeatherIcon = styled(Icon)`
   margin-bottom: 7px;
+`;
+
+const WeatherStatusText = styled.div`
+  font-size: 14px;
+  color: ${gray5};
 `;
 
 const TempSection = styled.div`
@@ -131,8 +164,14 @@ const TempPreviewText = styled(Description)`
   font-size: 14px;
 `;
 
-const TempDifferenceText = styled(Description)`
+const TempDiffSection = styled.div`
+  display: flex;
   margin-top: 48px;
+  align-items: center;
+  justify-content: space-between;
+`;
+
+const TempDifferenceText = styled(Description)`
   color: ${gray7};
   font-size: 14px;
 `;

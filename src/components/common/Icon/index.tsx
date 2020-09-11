@@ -11,12 +11,23 @@ export interface Props {
   size?: string | number;
   style?: React.CSSProperties;
   className?: string;
+  onClick?: () => void;
 }
 
-export const Icon: React.FC<Props> = ({ icon, color, size, className, style, ...restProps }) => {
+export const Icon: React.FC<Props> = ({ icon, color, size, className, style, onClick, ...restProps }) => {
   const SVGIcon = icons[icon];
 
-  return <StyledIcon style={style} color={color} width={size} className={className} {...restProps} src={SVGIcon} />;
+  return (
+    <StyledIcon
+      onClick={onClick}
+      style={style}
+      color={color}
+      width={size}
+      className={className}
+      {...restProps}
+      src={SVGIcon}
+    />
+  );
 };
 
 const StyledIcon = styled.img``;
