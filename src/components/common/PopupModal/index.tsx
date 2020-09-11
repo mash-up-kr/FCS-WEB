@@ -1,6 +1,6 @@
-import React, { useState, useMemo, useCallback, useEffect } from 'react';
+import React, { useCallback, useEffect, useMemo, useState } from 'react';
 import styled from 'styled-components';
-import { white, gray8, gray1 } from '../../../utils/color';
+import { gray1, gray8, white } from '../../../utils/color';
 
 interface Props {
   title?: string;
@@ -19,9 +19,10 @@ export const PopupModal = React.memo<Props>(props => {
     setVisible(true);
   }, []);
 
-  const closeModal = useCallback(() => {
-    setVisible(false);
-  }, []);
+  //memo(@kirby): 필요하면 주석 풀기
+  // const closeModal = useCallback(() => {
+  //   setVisible(false);
+  // }, []);
 
   const clonedOpener = useMemo(() => {
     return (

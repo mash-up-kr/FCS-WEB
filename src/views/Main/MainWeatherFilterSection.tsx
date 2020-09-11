@@ -1,9 +1,8 @@
-import React, { useCallback, useContext, useMemo } from 'react';
+import React, { useCallback } from 'react';
 import styled from 'styled-components';
-import { Icon } from '../../components/common/Icon';
+import { WeatherIcon } from '../../components/common/Icon/WeatherIcon';
 import { TempDiffCalculator } from '../../components/common/TempDiffCalculator';
-import { UserFilter, Weather, WeatherType } from '../../model/User';
-import { UserContext } from '../../stores/User';
+import { UserFilter, Weather, WeatherEnum } from '../../model/User';
 import { blue, gray3, gray5, gray7, red, white } from '../../utils/color';
 import { Description, Title } from './MainCommonUI';
 
@@ -13,8 +12,6 @@ interface Props {
 }
 
 export const MainWeatherFilterSection = React.memo<Props>(({ filter, setFilter }) => {
-  const { userFilterValue } = useContext(UserContext);
-
   const handleSelectWeather = useCallback(
     //memo(@kirby): 임시방편으로 any
     (weather: any) => {
@@ -22,15 +19,6 @@ export const MainWeatherFilterSection = React.memo<Props>(({ filter, setFilter }
     },
     [filter, setFilter]
   );
-
-  const weatherTypes = useMemo(() => {
-    return Object.entries(Weather).map(([key, value]) => (
-      <WeatherOption onClick={() => handleSelectWeather(key)} active={key === filter.weather}>
-        <WeatherIcon icon="sun" />
-        <WeatherStatusText>{value}</WeatherStatusText>
-      </WeatherOption>
-    ));
-  }, [filter.weather, handleSelectWeather]);
 
   const handleTempChange = useCallback(
     (e: React.ChangeEvent<HTMLInputElement>) => {
@@ -55,7 +43,44 @@ export const MainWeatherFilterSection = React.memo<Props>(({ filter, setFilter }
       </Title>
       <WeatherDescription>어떤 날씨와 온도가 궁금하신가요?</WeatherDescription>
       <WeatherText>날씨</WeatherText>
-      <WeatherSelectSection>{weatherTypes}</WeatherSelectSection>
+      {/* memo(@kirby): 코드 ㄹㅇ 안습 */}
+      <WeatherSelectSection>
+        <WeatherOption
+          onClick={() => handleSelectWeather(WeatherEnum.CLEAR)}
+          active={WeatherEnum.CLEAR === filter.weather}
+        >
+          <StyledWeatherIcon weather={WeatherEnum.CLEAR} />
+          <WeatherStatusText>{Weather[WeatherEnum.CLEAR]}</WeatherStatusText>
+        </WeatherOption>
+        <WeatherOption
+          onClick={() => handleSelectWeather(WeatherEnum.CLOUDS)}
+          active={WeatherEnum.CLOUDS === filter.weather}
+        >
+          <StyledWeatherIcon weather={WeatherEnum.CLOUDS} />
+          <WeatherStatusText>{Weather[WeatherEnum.CLOUDS]}</WeatherStatusText>
+        </WeatherOption>
+        <WeatherOption
+          onClick={() => handleSelectWeather(WeatherEnum.RAIN)}
+          active={WeatherEnum.RAIN === filter.weather}
+        >
+          <StyledWeatherIcon weather={WeatherEnum.RAIN} />
+          <WeatherStatusText>{Weather[WeatherEnum.RAIN]}</WeatherStatusText>
+        </WeatherOption>
+        <WeatherOption
+          onClick={() => handleSelectWeather(WeatherEnum.SNOW)}
+          active={WeatherEnum.SNOW === filter.weather}
+        >
+          <StyledWeatherIcon weather={WeatherEnum.SNOW} />
+          <WeatherStatusText>{Weather[WeatherEnum.SNOW]}</WeatherStatusText>
+        </WeatherOption>
+        <WeatherOption
+          onClick={() => handleSelectWeather(WeatherEnum.THUNDERSTORM)}
+          active={WeatherEnum.THUNDERSTORM === filter.weather}
+        >
+          <StyledWeatherIcon weather={WeatherEnum.THUNDERSTORM} />
+          <WeatherStatusText>{Weather[WeatherEnum.THUNDERSTORM]}</WeatherStatusText>
+        </WeatherOption>
+      </WeatherSelectSection>
       <WeatherText>온도</WeatherText>
       <TempSection>
         <WeatherDescription>현재 설정온도</WeatherDescription>
@@ -113,7 +138,7 @@ const WeatherOption = styled.div<{ active: boolean }>`
   `}
 `;
 
-const WeatherIcon = styled(Icon)`
+const StyledWeatherIcon = styled(WeatherIcon)`
   margin-bottom: 7px;
 `;
 
