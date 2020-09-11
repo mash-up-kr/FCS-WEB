@@ -27,7 +27,7 @@ const getFeeds = async (filterOption: UserFilter) => {
   return response;
 };
 
-const getStyles = async () => {
+const getStyles: any = async () => {
   const response = await axios({
     method: HttpMethod.GET,
     url: `${API_SERVER_PATH}/styles`,
