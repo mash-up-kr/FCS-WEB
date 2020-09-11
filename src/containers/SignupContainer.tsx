@@ -22,12 +22,11 @@ const SignupContainer: React.FC = () => {
   const history = useHistory();
 
   const handleNextClick = (): void => {
-    history.push('/signup/style');
+    history.push('/signup/style', value);
   };
 
   return (
     <Container>
-      {/* <ActionBar /> */}
       <NickNameContainer>
         <TitleText>기본 정보를 입력해주세요</TitleText>
         <NameBox>

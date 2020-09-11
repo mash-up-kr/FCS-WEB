@@ -7,13 +7,18 @@ import { Title } from '../Main/MainCommonUI';
 
 const { includes, without } = require('lodash');
 
+interface Styles {
+  id: number;
+  name: string;
+}
+
 export const ProfileFilterSection = React.memo(() => {
   const [value, setValue] = useState<number[]>([]);
   const [checked, setChecked] = useState(false);
 
   const handleStyle = () => setChecked(true);
 
-  const filters = [
+  const styles = [
     { id: 1, name: '캐주얼' },
     { id: 2, name: '스트릿' },
     { id: 3, name: '유스' },
@@ -34,27 +39,46 @@ export const ProfileFilterSection = React.memo(() => {
     { id: 18, name: '캠퍼스룩' },
     { id: 19, name: '힙합' },
   ];
-  const styles = useMemo(() => {
-    return filters.map(filter => <StyleBadge color="disabled">{filter.name}</StyleBadge>);
-  }, [filters]);
 
-  const onChange = (e: React.ChangeEvent<HTMLInputElement>) => {
-    const selectedValue = parseInt(e.target.value); // input 이벤트 타겟의 value를 숫자로 바꿔 변수에 할당
-    if (includes(value, selectedValue)) {
-      // 이미 선택한 값에 포함되어 있을 경우
-      setValue(without(value, selectedValue)); // 선택한 항목을 제외하고 저장
-    } else {
-      // 신규로 선택할 경우
-      setValue([...value, selectedValue]); // 선택한 값에 추가
-    }
-  };
+  const toggleStyle = useCallback(
+    (style: Styles) => {
+      const isStyleActive = value.includes(style.id);
+      if (isStyleActive) {
+        // setValue({ ...value, id: value.id.filter(id => id !== style.id) });
+        setValue(without(value, style.id));
+      } else {
+        setValue([...value, style.id]); // 선택한 값에 추가
+      }
+    },
+    [value, setValue]
+  );
+
+  const styleBadges = useMemo(() => {
+    return styles.map(style => {
+      const active = value.includes(style.id);
+
+      return (
+        <StyleBadge
+          onClick={() => {
+            toggleStyle(style);
+            console.log(value);
+          }}
+          key={style.id}
+          color={active ? 'active' : 'disabled'}
+        >
+          {style.name}
+        </StyleBadge>
+      );
+    });
+  }, [styles, value, toggleStyle]);
+
   return (
     <Container>
       <StyledTitle>
         닉네임 님의 스타일을 <br /> 알려주세요!
       </StyledTitle>
       <StyleDescription>어떤 스타일의 옷을 좋아하시나요?</StyleDescription>
-      <StyleSection>{styles}</StyleSection>
+      <StyleSection>{styleBadges}</StyleSection>
     </Container>
   );
 });

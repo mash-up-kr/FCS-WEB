@@ -1,4 +1,4 @@
-import React, { useCallback, useEffect, useRef, useState } from 'react';
+import React, { useCallback, useEffect, useRef, useState, useMemo } from 'react';
 import styled from 'styled-components';
 import { gray5, white, keyColor } from '../../../utils/color';
 import { Description, Rectangle, TextButton } from '../../../views/Main/MainCommonUI';
@@ -8,17 +8,30 @@ import { PopupModal } from '../PopupModal';
 import { Tabs } from '../Tabs';
 import { MainFilterSection } from '../../../views/Main/MainFilterSection';
 import { MainWeatherFilterSection } from '../../../views/Main/MainWeatherFilterSection';
+import { UserFilter } from '../../../model/User';
+import { WeatherIcon } from '../Icon/WeatherIcon';
 
-interface HeaderProps {}
+interface HeaderProps {
+  userFilterValue: UserFilter;
+  getStyleName: (styleId: number) => string;
+  setUserFilter: (userFilter: UserFilter) => void;
+}
 
 export const Header: React.FC<HeaderProps> = props => {
-  const { children, ...restProps } = props;
+  const { userFilterValue, getStyleName, setUserFilter, children, ...restProps } = props;
   const headerRef = useRef<any>(null);
   const [sticky, setSticky] = useState(false);
+  const [opened, setOpened] = useState(false);
+
+  const [filter, setFilter] = useState<UserFilter>(userFilterValue);
+
+  const handleSetFilter = useCallback((filter: UserFilter) => {
+    setFilter(filter);
+  }, []);
 
   const tabData = [
-    { title: '스타일', content: <MainFilterSection /> },
-    { title: '날씨', content: <MainWeatherFilterSection /> },
+    { title: '스타일', content: <MainFilterSection filter={filter} setFilter={handleSetFilter} /> },
+    { title: '날씨', content: <MainWeatherFilterSection filter={filter} setFilter={handleSetFilter} /> },
   ];
 
   const handler = useCallback((entries: IntersectionObserverEntry[]) => {
@@ -39,33 +52,61 @@ export const Header: React.FC<HeaderProps> = props => {
     headerSectionObserver.observe(headerRef.current);
   }, [handler]);
 
+  const openModal = useCallback(() => {
+    setOpened(true);
+  }, []);
+
+  const closeModal = useCallback(() => {
+    setOpened(false);
+  }, []);
+
+  const applyFilter = useCallback(() => {
+    setUserFilter(filter);
+
+    closeModal();
+  }, [setUserFilter, filter, closeModal]);
+
+  const minTemp = userFilterValue.temperature - userFilterValue.tempDifference;
+  const maxTemp = userFilterValue.temperature + userFilterValue.tempDifference;
+
+  const styleBadges = useMemo(() => {
+    return userFilterValue?.styleIds.map(styleId => {
+      const style = getStyleName(styleId);
+
+      return (
+        <StyledBadge key={styleId} color="active">
+          {style}
+        </StyledBadge>
+      );
+    });
+  }, [userFilterValue, getStyleName]);
+
   return (
     <Wrapper>
       <StyledHeader sticky={sticky} ref={headerRef} {...restProps}>
         <TopHeaderSection>
           <WeatherSection>
-            <Icon icon="sun" />
-            <TempTitle>24°</TempTitle>
-            <TempDescription>28°</TempDescription>
+            <WeatherIcon weather={userFilterValue.weather} />
+            <TempTitle>{userFilterValue.temperature}°</TempTitle>
+            <TempDescription>{minTemp}°</TempDescription>
             <StyledRectangle />
-            <TempDescription>20°</TempDescription>
+            <TempDescription>{maxTemp}°</TempDescription>
           </WeatherSection>
-          <PopupModal
-            title="필터"
-            leftBtn={<Icon icon="close" />}
-            rightBtn={<ApplyTextButton>적용</ApplyTextButton>}
-            opener={<Icon icon="filter" />}
-            divider
-          >
-            <Tabs data={tabData} />
-          </PopupModal>
+          <Icon icon="filter" onClick={openModal} />
         </TopHeaderSection>
-        <CategoryWrapper>
-          <StyledBadge color="active">스포티</StyledBadge>
-          <StyledBadge color="active">클래식</StyledBadge>
-        </CategoryWrapper>
+        <CategoryWrapper>{styleBadges}</CategoryWrapper>
       </StyledHeader>
       {children}
+
+      <PopupModal
+        opened={opened}
+        title="필터"
+        leftBtn={<Icon icon="close" onClick={closeModal} />}
+        rightBtn={<ApplyTextButton onClick={applyFilter}>적용</ApplyTextButton>}
+        divider
+      >
+        <Tabs data={tabData} />
+      </PopupModal>
     </Wrapper>
   );
 };
@@ -77,6 +118,7 @@ const Wrapper = styled.div`
   position: absolute;
   top: 328px;
   transition: top 0.15s linear;
+  margin-bottom: 50px;
 `;
 
 const StyledHeader = styled.header<{ sticky: boolean }>`

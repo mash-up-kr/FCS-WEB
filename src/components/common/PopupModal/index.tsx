@@ -1,26 +1,28 @@
-import React, { useState, useMemo, useCallback, useEffect } from 'react';
+import React, { useCallback, useEffect, useMemo, useState } from 'react';
 import styled from 'styled-components';
-import { white, gray8, gray1 } from '../../../utils/color';
+import { gray1, gray8, white } from '../../../utils/color';
 
 interface Props {
   title?: string;
   leftBtn?: React.ReactElement<{ style: React.CSSProperties }>;
   rightBtn?: React.ReactElement<{ style: React.CSSProperties }>;
   opener?: React.ReactElement<{ onClick: () => void }>;
+  opened?: boolean;
   divider?: boolean;
   children: any;
 }
 
 export const PopupModal = React.memo<Props>(props => {
-  const { opener, children, leftBtn, rightBtn, title, divider, ...restProps } = props;
+  const { opener, children, leftBtn, rightBtn, title, divider, opened, ...restProps } = props;
 
   const showModal = useCallback(() => {
     setVisible(true);
   }, []);
 
-  const closeModal = useCallback(() => {
-    setVisible(false);
-  }, []);
+  //memo(@kirby): 필요하면 주석 풀기
+  // const closeModal = useCallback(() => {
+  //   setVisible(false);
+  // }, []);
 
   const clonedOpener = useMemo(() => {
     return (
@@ -51,18 +53,22 @@ export const PopupModal = React.memo<Props>(props => {
     );
   }, [rightBtn]);
 
+  const modalOpened = useMemo(() => {
+    return opened ? opened : visible;
+  }, [opened, visible]);
+
   useEffect(() => {
-    if (visible) {
+    if (modalOpened) {
       document.body.style.overflow = 'hidden';
     } else {
       document.body.style.overflow = '';
     }
-  }, [visible]);
+  }, [modalOpened]);
 
   return (
     <>
       {clonedOpener}
-      <Dialog visible={visible} {...restProps}>
+      <Dialog visible={modalOpened} {...restProps}>
         <HeaderSection divider={divider}>
           {clonedLeftBtn}
           <Title>{title}</Title>

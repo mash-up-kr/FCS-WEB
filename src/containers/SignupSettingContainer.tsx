@@ -2,18 +2,21 @@ import React, { useCallback, useState } from 'react';
 import styled from 'styled-components';
 import { Button } from '../components/common/Button';
 import { ProfileFilterSection } from '../views/Profile/ProfileFilterSection';
+import { useHistory, useLocation } from 'react-router-dom';
 
 const SignupSettingContainer: React.FC = () => {
-  const [checked, setChecked] = useState(false);
+  const history = useHistory();
 
-  // const handleStyleChange = useCallback((event: React.ChangeEvent<HTMLInputElement>): void => {
-  //   setChecked(event.target.checked);
-  // }, []);
+  const handleNextClick = (): void => {
+    history.push('/');
+  };
 
   return (
     <Container>
       <ProfileFilterSection />
-      {checked ? <StyledButton color="active">완료</StyledButton> : <StyledButton color="disabled">완료</StyledButton>}
+      <StyledButton color="active" onClick={handleNextClick}>
+        완료
+      </StyledButton>
     </Container>
   );
 };

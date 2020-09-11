@@ -35,6 +35,7 @@ const InputField = styled.input`
   &:focus {
     border: none;
     border-bottom: 2px solid ${keyColor};
+    outline: none;
   }
 `;
 

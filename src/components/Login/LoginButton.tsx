@@ -30,7 +30,7 @@ const LoginButton: React.FC<LoginButtonProps> = (props, loginHandler) => {
       })
       .catch(function(error) {
         console.log(error);
-        history.push('/signup/username');
+        history.push('/signup/username', res);
       });
   };
 
