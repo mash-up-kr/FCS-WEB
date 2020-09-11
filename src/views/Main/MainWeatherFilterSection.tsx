@@ -10,9 +10,14 @@ import { Description, Title } from './MainCommonUI';
 interface Props {
   filter: UserFilter;
   setFilter: (filter: UserFilter) => void;
+  option: {
+    title: string;
+    message: string;
+    type: string;
+  };
 }
 
-export const MainWeatherFilterSection = React.memo<Props>(({ filter, setFilter }) => {
+export const MainWeatherFilterSection = React.memo<Props>(({ filter, setFilter, option }) => {
   const { userFilterValue } = useContext(UserContext);
 
   const handleSelectWeather = useCallback(
@@ -49,11 +54,9 @@ export const MainWeatherFilterSection = React.memo<Props>(({ filter, setFilter }
   return (
     <Container>
       <Title>
-        닉네임 님! 어떤 날씨와 온도가
-        <br />
-        궁금하신가요?
+        <pre>{option.title}</pre>
       </Title>
-      <WeatherDescription>어떤 날씨와 온도가 궁금하신가요?</WeatherDescription>
+      <WeatherDescription>{option.message}</WeatherDescription>
       <WeatherText>날씨</WeatherText>
       <WeatherSelectSection>{weatherTypes}</WeatherSelectSection>
       <WeatherText>온도</WeatherText>
@@ -67,10 +70,12 @@ export const MainWeatherFilterSection = React.memo<Props>(({ filter, setFilter }
         <TempPreviewText>0°</TempPreviewText>
         <TempPreviewText>+50°</TempPreviewText>
       </TempPreviewSection>
-      <TempDiffSection>
-        <TempDifferenceText>피드 허용 온도 오차범위</TempDifferenceText>
-        <TempDiffCalculator tempDifference={filter.tempDifference} onTempDiffChange={handleTempDiffChange} />
-      </TempDiffSection>
+      {option.type === 'filter' && (
+        <TempDiffSection>
+          <TempDifferenceText>피드 허용 온도 오차범위</TempDifferenceText>
+          <TempDiffCalculator tempDifference={filter.tempDifference} onTempDiffChange={handleTempDiffChange} />
+        </TempDiffSection>
+      )}
     </Container>
   );
 });

@@ -28,9 +28,19 @@ export const Header: React.FC<HeaderProps> = props => {
     setFilter(filter);
   }, []);
 
+  const MainWeatherFilterSectionOption = {
+    title: '닉네임 님! 어떤 날씨와 온도가 \n궁금하신가요?',
+    message: '어떤 날씨와 온도가 궁금하신가요?',
+    type: 'filter',
+  };
   const tabData = [
     { title: '스타일', content: <MainFilterSection filter={filter} setFilter={handleSetFilter} /> },
-    { title: '날씨', content: <MainWeatherFilterSection filter={filter} setFilter={handleSetFilter} /> },
+    {
+      title: '날씨',
+      content: (
+        <MainWeatherFilterSection filter={filter} setFilter={handleSetFilter} option={MainWeatherFilterSectionOption} />
+      ),
+    },
   ];
 
   const handler = useCallback((entries: IntersectionObserverEntry[]) => {

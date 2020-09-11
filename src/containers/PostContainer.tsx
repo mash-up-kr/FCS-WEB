@@ -1,15 +1,10 @@
 import React, { useState, useEffect } from 'react';
 import styled from 'styled-components';
 import PostHeader from '../components/common/Header/PostHeader';
-import Dropdown from '../assets/ic_dropdown.png';
-import { gray0, keyColor } from '../utils/color';
-import { Link } from 'react-router-dom';
 
 const PostContainer: React.FC = () => {
   const [photo, setPhoto] = useState();
   const [preview, setPreview] = useState();
-  const [date] = useState('20년 6월 21일 화요일');
-  const [location] = useState('서울 용산구');
 
   const addFile = (event: any): void => {
     const reader = new FileReader();
@@ -35,20 +30,6 @@ const PostContainer: React.FC = () => {
     </Wrapper>
   );
 };
-
-const BottomNavigator = styled.div`
-  width: 100%;
-  height: 50px;
-  display: flex;
-  position: fixed;
-  background-color: ${keyColor};
-  bottom: 0px;
-  justify-content: center;
-  align-items: center;
-  font-size: 18px;
-  font-weight: bold;
-  color: ${gray0};
-`;
 
 const TextArea = styled.textarea`
   outline: none;
