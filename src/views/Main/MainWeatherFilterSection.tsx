@@ -1,16 +1,33 @@
-import React, { useState, useCallback } from 'react';
+import React, { useCallback, useContext } from 'react';
 import styled from 'styled-components';
-import { Title, Description } from './MainCommonUI';
-import { gray7, white, blue, red, gray9, gray3 } from '../../utils/color';
 import { Icon } from '../../components/common/Icon';
 import { TempDiffCalculator } from '../../components/common/TempDiffCalculator';
+import { UserFilter } from '../../model/User';
+import { UserContext } from '../../stores/User';
+import { blue, gray3, gray7, red, white } from '../../utils/color';
+import { Description, Title } from './MainCommonUI';
 
-export const MainWeatherFilterSection = React.memo(() => {
-  const [temp, setTemp] = useState('24');
+interface Props {
+  filter: UserFilter;
+  setFilter: (filter: UserFilter) => void;
+}
 
-  const handleTempChange = useCallback((e: React.ChangeEvent<HTMLInputElement>) => {
-    setTemp(e.target.value);
-  }, []);
+export const MainWeatherFilterSection = React.memo<Props>(({ filter, setFilter }) => {
+  const { userFilterValue } = useContext(UserContext);
+
+  const handleTempChange = useCallback(
+    (e: React.ChangeEvent<HTMLInputElement>) => {
+      setFilter({ ...filter, temperature: Number(e.target.value) });
+    },
+    [filter, setFilter]
+  );
+
+  const handleTempDiffChange = useCallback(
+    (tempDifference: number) => {
+      setFilter({ ...filter, tempDifference });
+    },
+    [filter, setFilter]
+  );
 
   return (
     <Container>
@@ -45,9 +62,9 @@ export const MainWeatherFilterSection = React.memo(() => {
       <WeatherText>온도</WeatherText>
       <TempSection>
         <WeatherDescription>현재 설정온도</WeatherDescription>
-        <Temperature>{`${temp}°`}</Temperature>
+        <Temperature>{`${filter.temperature}°`}</Temperature>
       </TempSection>
-      <TempInputRange value={temp} onChange={handleTempChange} type="range" min={-50} max={50} step={1} />
+      <TempInputRange value={filter.temperature} onChange={handleTempChange} type="range" min={-50} max={50} step={1} />
       <TempPreviewSection>
         <TempPreviewText>-50°</TempPreviewText>
         <TempPreviewText>0°</TempPreviewText>
@@ -55,7 +72,7 @@ export const MainWeatherFilterSection = React.memo(() => {
       </TempPreviewSection>
       <TempDiffSection>
         <TempDifferenceText>피드 허용 온도 오차범위</TempDifferenceText>
-        <TempDiffCalculator />
+        <TempDiffCalculator tempDifference={filter.tempDifference} onTempDiffChange={handleTempDiffChange} />
       </TempDiffSection>
     </Container>
   );

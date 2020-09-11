@@ -2,21 +2,24 @@ import React, { useState, useCallback } from 'react';
 import styled from 'styled-components';
 import { gray1, gray6 } from '../../../utils/color';
 
-export const TempDiffCalculator = React.memo(() => {
-  const [tempDiff, setTempDiff] = useState(3);
+interface Props {
+  tempDifference: number;
+  onTempDiffChange: (tempDifference: number) => void;
+}
 
+export const TempDiffCalculator = React.memo<Props>(({ tempDifference, onTempDiffChange }) => {
   const increaseTempDiff = useCallback(() => {
-    setTempDiff(tempDiff + 1);
-  }, [tempDiff]);
+    onTempDiffChange(tempDifference + 1);
+  }, [onTempDiffChange, tempDifference]);
 
   const decreaseTempDiff = useCallback(() => {
-    setTempDiff(tempDiff - 1);
-  }, [tempDiff]);
+    onTempDiffChange(tempDifference - 1);
+  }, [onTempDiffChange, tempDifference]);
 
   return (
     <Container>
       <Button onClick={decreaseTempDiff}>-</Button>
-      <Temperature>{tempDiff}°</Temperature>
+      <Temperature>{tempDifference}°</Temperature>
       <Button onClick={increaseTempDiff}>+</Button>
     </Container>
   );

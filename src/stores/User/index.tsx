@@ -1,0 +1,44 @@
+import React, { createContext, useCallback, useContext, useState } from 'react';
+import { StyleContext } from '../Styles';
+
+interface UserContextValue {
+  userFilterValue: UserFilter;
+  setFilter: (userFilter: UserFilter) => void;
+}
+
+interface UserFilter {
+  styleIds: number[];
+  weather: string[];
+  temperature: number;
+  tempDifference: number;
+}
+
+const initialValue = {
+  userFilterValue: {
+    styleIds: [1, 2, 3],
+    weather: ['CLEAR'],
+    temperature: 22,
+    tempDifference: 2,
+  },
+  setFilter: (userFilter: UserFilter) => undefined,
+};
+
+interface UserProps {
+  initialUserValue?: undefined;
+}
+
+//TODO: 백엔드에 회원에 필터 담을수 있으면 그 로직 추가하기
+export const UserContext = createContext<UserContextValue>(initialValue);
+
+const UserProvider: React.FC<UserProps> = ({ children, initialUserValue }) => {
+  const [userFilter, setUserFilter] = useState<UserFilter>(initialValue.userFilterValue);
+  const { styles } = useContext(StyleContext);
+
+  const setFilter = useCallback((userFilter: UserFilter) => {
+    setUserFilter(userFilter);
+  }, []);
+
+  return <UserContext.Provider value={{ userFilterValue: userFilter, setFilter }}>{children}</UserContext.Provider>;
+};
+
+export default UserProvider;
