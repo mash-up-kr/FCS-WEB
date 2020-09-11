@@ -1,10 +1,10 @@
-import React, { useCallback, useContext } from 'react';
+import React, { useCallback, useContext, useMemo } from 'react';
 import styled from 'styled-components';
 import { Icon } from '../../components/common/Icon';
 import { TempDiffCalculator } from '../../components/common/TempDiffCalculator';
-import { UserFilter } from '../../model/User';
+import { UserFilter, Weather, WeatherType } from '../../model/User';
 import { UserContext } from '../../stores/User';
-import { blue, gray3, gray7, red, white } from '../../utils/color';
+import { blue, gray3, gray5, gray7, red, white } from '../../utils/color';
 import { Description, Title } from './MainCommonUI';
 
 interface Props {
@@ -14,6 +14,23 @@ interface Props {
 
 export const MainWeatherFilterSection = React.memo<Props>(({ filter, setFilter }) => {
   const { userFilterValue } = useContext(UserContext);
+
+  const handleSelectWeather = useCallback(
+    //memo(@kirby): 임시방편으로 any
+    (weather: any) => {
+      setFilter({ ...filter, weather });
+    },
+    [filter, setFilter]
+  );
+
+  const weatherTypes = useMemo(() => {
+    return Object.entries(Weather).map(([key, value]) => (
+      <WeatherOption onClick={() => handleSelectWeather(key)} active={key === filter.weather}>
+        <WeatherIcon icon="sun" />
+        <WeatherStatusText>{value}</WeatherStatusText>
+      </WeatherOption>
+    ));
+  }, [filter.weather, handleSelectWeather]);
 
   const handleTempChange = useCallback(
     (e: React.ChangeEvent<HTMLInputElement>) => {
@@ -38,27 +55,7 @@ export const MainWeatherFilterSection = React.memo<Props>(({ filter, setFilter }
       </Title>
       <WeatherDescription>어떤 날씨와 온도가 궁금하신가요?</WeatherDescription>
       <WeatherText>날씨</WeatherText>
-      <WeatherSelectSection>
-        <WeatherOption>
-          <WeatherIcon icon="sun" />
-          맑음
-        </WeatherOption>
-        <WeatherOption>
-          <WeatherIcon icon="sun" />
-          흐림
-        </WeatherOption>
-        <WeatherOption>
-          <WeatherIcon icon="sun" />비
-        </WeatherOption>
-        <WeatherOption>
-          <WeatherIcon icon="sun" />
-          우박
-        </WeatherOption>
-        <WeatherOption>
-          <WeatherIcon icon="sun" />
-          천둥
-        </WeatherOption>
-      </WeatherSelectSection>
+      <WeatherSelectSection>{weatherTypes}</WeatherSelectSection>
       <WeatherText>온도</WeatherText>
       <TempSection>
         <WeatherDescription>현재 설정온도</WeatherDescription>
@@ -99,16 +96,30 @@ const WeatherSelectSection = styled.div`
   margin-top: 12px;
 `;
 
-const WeatherOption = styled.div`
+const WeatherOption = styled.div<{ active: boolean }>`
   display: flex;
   flex-direction: column;
   align-items: center;
+  justify-content: space-between;
   font-size: 14px;
-  margin-right: 26px;
+  margin-right: 15px;
+  padding: 10px 8px 5px;
+
+  ${props =>
+    props.active &&
+    `
+    border-radius: 7px;
+  background-color: #eaf5f5;
+  `}
 `;
 
 const WeatherIcon = styled(Icon)`
   margin-bottom: 7px;
+`;
+
+const WeatherStatusText = styled.div`
+  font-size: 14px;
+  color: ${gray5};
 `;
 
 const TempSection = styled.div`

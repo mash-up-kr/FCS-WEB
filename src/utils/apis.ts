@@ -12,7 +12,7 @@ const getFeeds = async (filterOption: UserFilter) => {
   const { temperature, tempDifference } = filterOption;
 
   const styleIds = StringUtil.arrayToParamValue(filterOption.styleIds);
-  const weather = StringUtil.arrayToParamValue(filterOption.weather);
+  const weather = filterOption.weather;
   const minTEmp = temperature - tempDifference;
   const maxTemp = temperature + tempDifference;
 

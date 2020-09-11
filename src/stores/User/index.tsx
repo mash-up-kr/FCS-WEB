@@ -1,4 +1,5 @@
 import React, { createContext, useCallback, useContext, useState } from 'react';
+import { WeatherType, WeatherEnum } from '../../model/User';
 import { StyleContext } from '../Styles';
 
 interface UserContextValue {
@@ -8,7 +9,7 @@ interface UserContextValue {
 
 interface UserFilter {
   styleIds: number[];
-  weather: string[];
+  weather: 'CLEAR' | 'CLOUDS' | 'RAIN' | 'SNOW' | 'THUNDERSTORM';
   temperature: number;
   tempDifference: number;
 }
@@ -16,7 +17,7 @@ interface UserFilter {
 const initialValue = {
   userFilterValue: {
     styleIds: [1, 2, 3],
-    weather: ['CLEAR'],
+    weather: WeatherEnum.CLEAR,
     temperature: 22,
     tempDifference: 2,
   },
