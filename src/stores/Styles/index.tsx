@@ -1,4 +1,4 @@
-import React, { createContext, useState, useCallback, useEffect } from 'react';
+import React, { createContext, useCallback, useState } from 'react';
 import api from '../../utils/apis';
 
 interface Styles {
