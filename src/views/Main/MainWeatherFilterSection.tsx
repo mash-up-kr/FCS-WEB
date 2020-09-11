@@ -109,7 +109,7 @@ const WeatherOption = styled.div<{ active: boolean }>`
     props.active &&
     `
     border-radius: 7px;
-  background-color: #eaf5f5;
+    background-color: #eaf5f5;
   `}
 `;
 
