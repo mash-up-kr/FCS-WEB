@@ -1,4 +1,4 @@
-import React, { useContext, useEffect, useMemo, useCallback } from 'react';
+import React, { useCallback, useContext, useMemo } from 'react';
 import styled from 'styled-components';
 import { Badge } from '../../components/common/Badge';
 import { UserFilter } from '../../model/User';

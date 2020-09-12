@@ -66,6 +66,7 @@ const StyledButton = styled(KaKaoLogin)`
   justify-content: center;
   align-items: center;
   margin-top: 156px;
+  outline: none;
 `;
 
 const Icon = styled.img`
