@@ -41,7 +41,10 @@ export const Header: React.FC<HeaderProps> = props => {
   };
 
   const tabData = [
-    { title: '스타일', content: <MainFilterSection filter={filter} setFilter={handleSetFilter} /> },
+    {
+      title: '스타일',
+      content: <MainFilterSection filter={filter} setFilter={handleSetFilter} option={MainFilterSectionOption} />,
+    },
     {
       title: '날씨',
       content: (
