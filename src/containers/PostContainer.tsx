@@ -1,149 +1,99 @@
-import React, { useContext, useMemo } from 'react';
-import { useParams } from 'react-router';
+import React, { useState, useEffect } from 'react';
 import styled from 'styled-components';
-import { Badge } from '../components/common/Badge';
-import { Icon } from '../components/common/Icon';
-import { WeatherIcon } from '../components/common/Icon/WeatherIcon';
-import { RatioImage } from '../components/common/RatioImage';
-import { FeedContext } from '../stores/Feed';
-import { StyleContext } from '../stores/Styles/index';
-import { gray1, gray8, gray9 } from '../utils/color';
+import PostHeader from '../components/common/Header/PostHeader';
 
-interface Params {
-  id: string;
-}
+const PostContainer: React.FC = () => {
+  const [photo, setPhoto] = useState();
+  const [preview, setPreview] = useState();
 
-interface Styles {
-  id: number;
-  name: string;
-}
+  const addFile = (event: any): void => {
+    const reader = new FileReader();
+    const file = event.target.files[0];
 
-const PostContainer = React.memo(() => {
-  const { id } = useParams<Params>();
+    reader.onloadend = () => {
+      setPhoto(file);
+      setPreview(reader.result);
+    };
+    reader.readAsDataURL(file);
+  };
 
-  const { feeds } = useContext(FeedContext);
-  const { styles } = useContext(StyleContext);
-
-  const data = useMemo(() => {
-    //memo(@kirby): 왠지 모르겠는데 type number인거로 추정
-    const feed = feeds?.find(feed => feed.id.toString() === id);
-
-    return feed ?? null;
-  }, [id, feeds]);
-
-  //memo(@kirby): 이거도 코드가 아주 안쓰럽다.
-  const styleBadges = useMemo(() => {
-    const generatedStyles: Styles[] = [];
-
-    data?.styleIds.forEach(styleId => {
-      const style = styles.find(style => style.id === Number(styleId));
-      if (style) {
-        generatedStyles.push(style);
-      }
-    });
-
-    return generatedStyles.map(style => (
-      <StyleBadge key={style.id} color="active">
-        {style.name}
-      </StyleBadge>
-    ));
-  }, [data, styles]);
-
-  if (!data) {
-    return <></>;
-  }
+  useEffect(() => {}, []);
 
   return (
-    <Container>
-      <Header>
-        <BackBtn icon="back" />
-        <Title>게시물 보기</Title>
-      </Header>
-      <UserSection>
-        <UserNickName>{data.nickname}</UserNickName>
-      </UserSection>
-      <StyleSection>{styleBadges}</StyleSection>
-      <RatioImage src={data.photoUrl} alt="thumbnail"></RatioImage>
-      <CardContent>
-        <WeatherSection>
-          <WeatherIcon weather={data.weather} />
-          <Temperature>{data.temperature}°</Temperature>
-          <HeartIcon icon="heart" />
-        </WeatherSection>
-        <Content>{data.message}</Content>
-      </CardContent>
-    </Container>
+    <Wrapper>
+      <PostHeader />
+      <Container>
+        <UploadPhotoLabel htmlFor="file" photo={preview} />
+        <UploadPhotoInput id="file" type="file" name="photo" accept="image/*" onChange={addFile} />
+        <TextArea placeholder="문구 입력..." required />
+      </Container>
+    </Wrapper>
   );
-});
+};
+
+const TextArea = styled.textarea`
+  outline: none;
+  display: flex;
+  align-self: stretch;
+  border: 0px;
+  margin: 15px;
+  margin-top: 0px;
+  margin-right: 0px;
+  width: 100%;
+`;
+
+const UploadPhotoLabel = styled.label<{ photo: string }>`
+  min-width: 60px;
+  height: 60px;
+  ::after {
+    content: '';
+    display: block;
+    padding-bottom: 100%;
+  }
+  .inner {
+    position: absolute;
+    width: 100%;
+    height: 100%;
+  }
+  background-image: url(${props => props.photo});
+  background-size: 60px;
+  display: flex;
+  padding: 0.5em 0.75em;
+  color: #999;
+  font-size: inherit;
+  line-height: normal;
+  vertical-align: middle;
+  background-color: #fdfdfd;
+  cursor: pointer;
+  border: 1px solid #ebebeb;
+  border-bottom-color: #e2e2e2;
+  border-radius: 0.25em;
+`;
+
+const UploadPhotoInput = styled.input`
+  height: 1px;
+  width: 1px;
+  background-color: gray;
+  position: absolute;
+  padding: 0;
+  margin: -1px;
+  overflow: hidden;
+  clip: rect(0, 0, 0, 0);
+  border: 0;
+`;
+
+const Container = styled.div`
+  display: flex;
+  flex-direction: row;
+  align-self: stretch;
+  margin: 20px;
+  height: 100%;
+`;
+
+const Wrapper = styled.div`
+  display: flex;
+  flex-direction: column;
+  height: 100vh;
+`;
 
 export default PostContainer;
-
-const Container = styled.div``;
-
-const Header = styled.header`
-  display: flex;
-  align-items: center;
-  padding: 15px 20px;
-  position: relative;
-`;
-
-const StyleSection = styled.div`
-  display: flex;
-  padding: 6px 20px 11px;
-`;
-
-const StyleBadge = styled(Badge)`
-  margin-right: 10px;
-`;
-
-const BackBtn = styled(Icon)`
-  margin-right: auto;
-`;
-
-const UserSection = styled.div`
-  padding: 8px 20px;
-`;
-
-const UserNickName = styled.div`
-  font-size: 14px;
-  font-weight: bold;
-`;
-
-const Title = styled.div`
-  color: ${gray8};
-  margin-left: auto;
-  margin-right: auto;
-  font-weight: bold;
-  font-size: 14px;
-
-  position: absolute;
-  left: 50%;
-  transform: translateX(-50%);
-`;
-
-const CardContent = styled.div`
-  padding: 20px;
-  border-bottom: 2px solid ${gray1};
-`;
-
-const WeatherSection = styled.div`
-  display: flex;
-  align-items: center;
-  padding: 8px 0px;
-`;
-
-const Temperature = styled.div`
-  font-size: 16px;
-  font-weight: bold;
-  margin-left: 6px;
-`;
-
-const Content = styled.div`
-  font-size: 14px;
-  color: ${gray9};
-  margin-top: 10px;
-`;
-
-const HeartIcon = styled(Icon)`
-  margin-left: auto;
-`;

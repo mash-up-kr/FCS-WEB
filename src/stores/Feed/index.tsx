@@ -6,11 +6,9 @@ type Feed = {
   id: string;
   photoUrl: string;
   message: string;
-  weather: 'CLEAR' | 'CLOUDS' | 'RAIN' | 'SNOW' | 'THUNDERSTORM';
-  temperature: string;
+  weather: string;
+  tempature: string;
   date: string;
-  nickname: string;
-  styleIds: string[];
 };
 
 interface FeedContextValue {
@@ -34,7 +32,6 @@ const FeedProvider: React.FC<FeedProps> = ({ children, initialFeedValue }) => {
 
   const getFeeds = useCallback(async (filterOptions: UserFilter) => {
     const { data } = await api.getFeeds(filterOptions);
-
     //TODO: 무한 스크롤 가능하게 구현하기
     setFeeds(data.data.posts);
   }, []);

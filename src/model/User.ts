@@ -12,7 +12,7 @@ export const Weather = {
   [WeatherEnum.CLEAR]: '맑음',
   [WeatherEnum.CLOUDS]: '흐림',
   [WeatherEnum.RAIN]: '비',
-  [WeatherEnum.SNOW]: '눈',
+  [WeatherEnum.SNOW]: '우박',
   [WeatherEnum.THUNDERSTORM]: '천둥',
 };
 

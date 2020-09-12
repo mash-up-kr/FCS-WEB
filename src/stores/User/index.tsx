@@ -1,5 +1,6 @@
-import React, { createContext, useCallback, useState } from 'react';
-import { WeatherEnum } from '../../model/User';
+import React, { createContext, useCallback, useContext, useState } from 'react';
+import { WeatherType, WeatherEnum } from '../../model/User';
+import { StyleContext } from '../Styles';
 
 interface UserContextValue {
   userFilterValue: UserFilter;
@@ -32,6 +33,7 @@ export const UserContext = createContext<UserContextValue>(initialValue);
 
 const UserProvider: React.FC<UserProps> = ({ children, initialUserValue }) => {
   const [userFilter, setUserFilter] = useState<UserFilter>(initialValue.userFilterValue);
+  const { styles } = useContext(StyleContext);
 
   const setFilter = useCallback((userFilter: UserFilter) => {
     setUserFilter(userFilter);
