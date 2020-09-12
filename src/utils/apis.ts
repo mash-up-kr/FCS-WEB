@@ -39,18 +39,4 @@ const getStyles: any = async () => {
   return response;
 };
 
-// const postSignup: any = async () => {
-//   const response = await axios({
-//     method: HttpMethod.POST,
-//     url: `${API_SERVER_PATH}/users/sign-up`,
-//     data: {
-//       uid:,
-//       authType: 'KAKAO',
-//       nickname:,
-//       styleIds:
-//     }
-//   });
-//   return response;
-// }
-
 export default { getFeeds, getStyles };
