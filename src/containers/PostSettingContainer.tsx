@@ -1,6 +1,6 @@
 import React, { useState, useEffect, useCallback } from 'react';
 import styled from 'styled-components';
-import { gray0, gray9, keyColor } from '../utils/color';
+import { gray1, gray9, keyColor } from '../utils/color';
 import { Link } from 'react-router-dom';
 import { Tabs } from '../components/common/Tabs/index';
 import { MainFilterSection } from '../views/Main/MainFilterSection';
@@ -25,9 +25,18 @@ const PostSettingContainer: React.FC = () => {
     type: 'upload',
   };
 
+  const mainFilterSectionOption = {
+    title: `닉네임 님의 스타일을\n알려주세요!`,
+    message: '오늘은 어떤 스타일의 옷을 입으셨나요?',
+    type: 'upload',
+  };
+
   const tabData = [
     { title: '날짜', content: <div>날짜 뷰</div> },
-    { title: '스타일', content: <MainFilterSection filter={filter} setFilter={handleSetFilter} /> },
+    {
+      title: '스타일',
+      content: <MainFilterSection filter={filter} setFilter={handleSetFilter} option={mainFilterSectionOption} />,
+    },
     { title: '지역', content: <div>지역 뷰</div> },
     {
       title: '날씨',
@@ -93,6 +102,7 @@ const HeaderWrapper = styled.div`
   min-height: 50px;
   font-size: 18px;
   font-weight: bold;
+  border-bottom: 1px solid ${gray1};
 `;
 
 const Wrapper = styled.div`

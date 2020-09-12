@@ -33,6 +33,13 @@ export const Header: React.FC<HeaderProps> = props => {
     message: '어떤 날씨와 온도가 궁금하신가요?',
     type: 'filter',
   };
+
+  const MainFilterSectionOption = {
+    title: '닉네임 님의 스타일을 \n알려주세요!',
+    message: '오늘은 어떤 스타일의 옷을 입으실건가요?',
+    type: 'filter',
+  };
+
   const tabData = [
     { title: '스타일', content: <MainFilterSection filter={filter} setFilter={handleSetFilter} /> },
     {
