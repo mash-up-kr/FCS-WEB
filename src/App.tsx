@@ -1,7 +1,7 @@
 import React from 'react';
 import GlobalStyle from './styles/GlobalStyle.ts';
 import { BrowserRouter, Switch } from 'react-router-dom';
-import { MainPage, PostPage } from './pages';
+import { MainPage, DetailPostPage } from './pages';
 import RouteWithTabs from './layouts/RouteWithTab';
 
 const App: React.FC = () => (
@@ -10,7 +10,7 @@ const App: React.FC = () => (
     <BrowserRouter>
       <Switch>
         <RouteWithTabs exact path="/" component={MainPage} />
-        <RouteWithTabs exact path="/posts/:id" component={PostPage} />
+        <RouteWithTabs exact path="/posts/:id" component={DetailPostPage} />
       </Switch>
     </BrowserRouter>
   </>
