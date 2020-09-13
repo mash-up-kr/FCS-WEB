@@ -5,7 +5,7 @@ import { Link } from 'react-router-dom';
 import Close from '../../../../assets/ic_navigation_close.png';
 import Back from '../../../../assets/ic_navigation_back.png';
 
-const PostHeader: React.FC = () => (
+const UploadHeader: React.FC = () => (
   <Wrapper>
     <BackIcon to="/">
       <Icon src={Close} />
@@ -50,4 +50,4 @@ const Wrapper = styled.div`
   background-color: ${white};
 `;
 
-export default PostHeader;
+export default UploadHeader;

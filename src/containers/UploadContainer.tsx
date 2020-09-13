@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import styled from 'styled-components';
-import PostHeader from '../components/common/Header/PostHeader';
+import UploadHeader from '../components/common/Header/UploadHeader';
 
 const PostContainer: React.FC = () => {
   const [photo, setPhoto] = useState();
@@ -21,7 +21,7 @@ const PostContainer: React.FC = () => {
 
   return (
     <Wrapper>
-      <PostHeader />
+      <UploadHeader />
       <Container>
         <UploadPhotoLabel htmlFor="file" photo={preview} />
         <UploadPhotoInput id="file" type="file" name="photo" accept="image/*" onChange={addFile} />

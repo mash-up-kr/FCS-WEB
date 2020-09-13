@@ -1,10 +1,10 @@
 import React, { Component } from 'react';
 import PostSettingContainer from '../containers/PostSettingContainer';
 
-class PostPage extends Component {
+class PostSettingPage extends Component {
   render(): JSX.Element {
     return <PostSettingContainer />;
   }
 }
 
-export default PostPage;
+export default PostSettingPage;
