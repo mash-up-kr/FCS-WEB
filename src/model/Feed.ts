@@ -3,6 +3,6 @@ export interface Feed {
   photoUrl: string;
   message: string;
   weather: string;
-  tempature: string;
+  temperature: string;
   date: string;
 }

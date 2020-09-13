@@ -9,6 +9,7 @@ import { Tabs } from '../Tabs';
 import { MainFilterSection } from '../../../views/Main/MainFilterSection';
 import { MainWeatherFilterSection } from '../../../views/Main/MainWeatherFilterSection';
 import { UserFilter } from '../../../model/User';
+import { WeatherIcon } from '../Icon/WeatherIcon';
 
 interface HeaderProps {
   userFilterValue: UserFilter;
@@ -106,6 +107,7 @@ export const Header: React.FC<HeaderProps> = props => {
         <TopHeaderSection>
           <WeatherSection>
             <Icon icon="sun" />
+            <WeatherIcon weather={userFilterValue.weather} />
             <TempTitle>{userFilterValue.temperature}°</TempTitle>
             <TempDescription>{minTemp}°</TempDescription>
             <StyledRectangle />
