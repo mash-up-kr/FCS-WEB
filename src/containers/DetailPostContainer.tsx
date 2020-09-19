@@ -18,7 +18,7 @@ interface Styles {
   name: string;
 }
 
-const PostContainer = React.memo(() => {
+const DetailPostContainer = React.memo(() => {
   const { id } = useParams<Params>();
 
   const { feeds } = useContext(FeedContext);
@@ -76,7 +76,7 @@ const PostContainer = React.memo(() => {
   );
 });
 
-export default PostContainer;
+export default DetailPostContainer;
 
 const Container = styled.div``;
 
