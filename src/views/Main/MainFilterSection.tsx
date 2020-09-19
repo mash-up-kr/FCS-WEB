@@ -13,10 +13,15 @@ interface Styles {
 interface Props {
   filter: UserFilter;
   setFilter: (filter: UserFilter) => void;
+  option: {
+    title: string;
+    message: string;
+    type: string;
+  };
 }
 
 //TODO: getStyles 비지니스 로직에서 실행하기
-export const MainFilterSection = React.memo<Props>(({ filter, setFilter }) => {
+export const MainFilterSection = React.memo<Props>(({ filter, setFilter, option }) => {
   const { styles } = useContext(StyleContext);
 
   //memo(@kirby): 코드가 매우 안습이므로 나중에 리팩토링을 하자
@@ -47,9 +52,9 @@ export const MainFilterSection = React.memo<Props>(({ filter, setFilter }) => {
   return (
     <Container>
       <Title>
-        닉네임 님의 스타일을 <br /> 알려주세요!
+        <pre>{option.title}</pre>
       </Title>
-      <StyleDescription>오늘은 옷은 어떤 스타일의 옷을 입으실건가요?</StyleDescription>
+      <StyleDescription>{option.message}</StyleDescription>
       <StyleSection>{styleBadges}</StyleSection>
     </Container>
   );

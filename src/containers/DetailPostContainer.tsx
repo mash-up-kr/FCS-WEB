@@ -115,7 +115,6 @@ const Title = styled.div`
   margin-right: auto;
   font-weight: bold;
   font-size: 14px;
-
   position: absolute;
   left: 50%;
   transform: translateX(-50%);
