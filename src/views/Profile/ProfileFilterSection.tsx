@@ -1,9 +1,7 @@
-import React, { useMemo, useState, useCallback } from 'react';
+import React, { useCallback, useMemo, useState } from 'react';
 import styled from 'styled-components';
 import { Badge } from '../../components/common/Badge';
-import { gray7 } from '../../utils/color';
-import { Description } from '../Main/MainCommonUI';
-import { Title } from '../Main/MainCommonUI';
+import { Description, Title } from '../Main/MainCommonUI';
 
 const { includes, without } = require('lodash');
 
