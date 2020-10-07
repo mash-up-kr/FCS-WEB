@@ -1,16 +1,20 @@
-import React, { useCallback, useState } from 'react';
+import React, { useCallback, useState, useContext } from 'react';
 import { useHistory } from 'react-router-dom';
+import { RouteComponentProps } from 'react-router';
 import styled from 'styled-components';
 import { gray6, gray8 } from '../utils/color';
 import NameField from '../components/Signup';
 import Checkbox from '../components/Signup/CheckBox/Checkbox';
 import { Button } from '../components/common/Button';
-import SignupSettingContainer from './SignupSettingContainer';
+import { useSignupState, useSampleDispatch } from '../stores/Signup';
 
 const SignupContainer: React.FC = () => {
   const [value, setValue] = useState('');
   const [checked, setChecked] = useState(false);
   const [modalOpen, setModalOpen] = useState(false);
+
+  const state = useSignupState();
+  const dispatch = useSampleDispatch();
 
   const handleNameChange = useCallback((event: React.ChangeEvent<HTMLInputElement>): void => {
     setValue(event.target.value);
@@ -19,10 +23,13 @@ const SignupContainer: React.FC = () => {
     setChecked(event.target.checked);
   }, []);
 
+  const setNickname = () => dispatch({ type: 'SET_NICKNAME', nickname: value });
+
   const history = useHistory();
 
   const handleNextClick = (): void => {
-    history.push('/signup/style', value);
+    history.push(`/signup/style`);
+    setNickname();
   };
 
   return (

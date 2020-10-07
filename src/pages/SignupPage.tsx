@@ -1,6 +1,6 @@
 import React from 'react';
 import SignupContainer from '../containers/SignupContainer';
 
-const SignupPage: React.FC = () => <SignupContainer />;
+const SingupPage: React.FC = () => <SignupContainer />;
 
-export default SignupPage;
+export default SingupPage;

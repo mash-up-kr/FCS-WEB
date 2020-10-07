@@ -10,9 +10,14 @@ const Actionbar: React.FC = () => {
     history.goBack();
   };
 
+  //   const handleNextClick = (): void => {
+  //     history.push('/invitation');
+  //   };
+
   return (
     <Wrapper>
       <PrevIcon src={PrevIcon1} onClick={handlePrevClick} alt="prevIcon" />
+      <SaveBtn>저장</SaveBtn>
     </Wrapper>
   );
 };
@@ -28,5 +33,14 @@ const Wrapper = styled.div`
 const PrevIcon = styled.img`
   margin-left: 20px;
   margin-top: 13px;
+`;
+
+const SaveBtn = styled.button`
+  font-family: SpoqaHanSans;
+  font-size: 16px;
+  font-weight: bold;
+  font-stretch: normal;
+  font-style: normal;
+  color: #68e1de;
 `;
 export default Actionbar;

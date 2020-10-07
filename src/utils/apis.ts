@@ -6,7 +6,7 @@ enum HttpMethod {
   GET = 'GET',
   POST = 'POST',
 }
-const API_SERVER_PATH = 'http://52.78.79.159:8080/api';
+export const API_SERVER_PATH = 'http://52.78.79.159:8080/api';
 
 const getFeeds = async (filterOption: UserFilter) => {
   const { temperature, tempDifference } = filterOption;

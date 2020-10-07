@@ -3,6 +3,8 @@ import styled from 'styled-components';
 import KaKaoLogin from 'react-kakao-login';
 import APIKEY from '../../.env/KakaoAPIKEY';
 import { useHistory } from 'react-router-dom';
+import { useSignupState, useSampleDispatch } from '../../stores/Signup';
+import { API_SERVER_PATH } from '../../utils/apis';
 
 import axios from 'axios';
 
@@ -15,12 +17,18 @@ const LoginButton: React.FC<LoginButtonProps> = (props, loginHandler) => {
   const [isLogin, setIsLogin] = useState(false);
   const history = useHistory();
 
+  const state = useSignupState();
+  const dispatch = useSampleDispatch();
+
   const responseKaKao = (res: any) => {
     console.log(res);
     console.log(res.profile.id);
+
     setIsLogin(true);
+    const setUid = () => dispatch({ type: 'SET_UID', uid: res.profile.id });
+    const setAuthType = () => dispatch({ type: 'SET_AUTHTYPE', authType: 'KAKAO' });
     axios
-      .post('http://52.78.79.159:8080/api/users/sign-in', {
+      .post(`${API_SERVER_PATH}/users/sign-in`, {
         uid: res.profile.id,
         authType: 'KAKAO',
       })
@@ -30,7 +38,10 @@ const LoginButton: React.FC<LoginButtonProps> = (props, loginHandler) => {
       })
       .catch(function(error) {
         console.log(error);
-        history.push('/signup/username', res);
+        history.push('/signup/username');
+        setUid();
+        setAuthType();
+        console.log('전송');
       });
   };
 

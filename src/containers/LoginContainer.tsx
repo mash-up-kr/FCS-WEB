@@ -3,10 +3,11 @@ import styled from 'styled-components';
 import { gray8, gray10 } from '../utils/color';
 import { LoginButton } from '../components/Login';
 import kakaoLoginIcon from '../assets/ic-kakaologin.svg';
+import { useSignupState } from '../stores/Signup';
 
 const LoginContainer: React.FC = props => {
   const [isLogin, setIsLogin] = useState(false);
-
+  const state = useSignupState();
   return (
     <Container>
       <TitleText>오늘 옷</TitleText>
@@ -14,6 +15,7 @@ const LoginContainer: React.FC = props => {
       <LoginButton icon={kakaoLoginIcon}>
         {isLogin ? <span>로그아웃</span> : <span>카카오계정으로 시작하기</span>}
       </LoginButton>
+      <h2>hello</h2>
     </Container>
   );
 };

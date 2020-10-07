@@ -4,6 +4,7 @@ import { Badge } from '../../components/common/Badge';
 import { gray7 } from '../../utils/color';
 import { Description } from '../Main/MainCommonUI';
 import { Title } from '../Main/MainCommonUI';
+import { useSignupState, useSampleDispatch } from '../../stores/Signup';
 
 const { includes, without } = require('lodash');
 
@@ -11,12 +12,17 @@ interface Styles {
   id: number;
   name: string;
 }
+interface Profile {
+  username: string;
+  onChange?: (event: React.ChangeEvent<HTMLInputElement>) => void;
+}
 
-export const ProfileFilterSection = React.memo(() => {
+export const ProfileFilterSection = React.memo<Profile>((props: any) => {
   const [value, setValue] = useState<number[]>([]);
   const [checked, setChecked] = useState(false);
 
-  const handleStyle = () => setChecked(true);
+  const state = useSignupState();
+  const dispatch = useSampleDispatch();
 
   const styles = [
     { id: 1, name: '캐주얼' },
@@ -53,6 +59,8 @@ export const ProfileFilterSection = React.memo(() => {
     [value, setValue]
   );
 
+  const setStyleIds = useCallback(() => dispatch({ type: 'SET_STYLEIDS', styleIds: value }), [dispatch, value]);
+
   const styleBadges = useMemo(() => {
     return styles.map(style => {
       const active = value.includes(style.id);
@@ -62,6 +70,7 @@ export const ProfileFilterSection = React.memo(() => {
           onClick={() => {
             toggleStyle(style);
             console.log(value);
+            setStyleIds();
           }}
           key={style.id}
           color={active ? 'active' : 'disabled'}
@@ -70,12 +79,12 @@ export const ProfileFilterSection = React.memo(() => {
         </StyleBadge>
       );
     });
-  }, [styles, value, toggleStyle]);
+  }, [styles, value, toggleStyle, setStyleIds]);
 
   return (
     <Container>
       <StyledTitle>
-        닉네임 님의 스타일을 <br /> 알려주세요!
+        {props.username}님의 스타일을 <br /> 알려주세요!
       </StyledTitle>
       <StyleDescription>어떤 스타일의 옷을 좋아하시나요?</StyleDescription>
       <StyleSection>{styleBadges}</StyleSection>
