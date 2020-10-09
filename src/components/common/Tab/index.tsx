@@ -15,7 +15,9 @@ export const Tab: React.FC = () => (
     <Link to="/post">
       <Icon src={tabPlus} alt="tabPlus" />
     </Link>
-    <Icon src={tabMypage} alt="tabMypage" />
+    <Link to="/mypage">
+      <Icon src={tabMypage} alt="tabMypage" />
+    </Link>
   </TabContainer>
 );
 

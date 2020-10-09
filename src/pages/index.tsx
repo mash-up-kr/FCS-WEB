@@ -7,3 +7,4 @@ export { default as ChooseLocationPage } from './ChooseLocationPage';
 export { default as PostSettingPage } from './PostSettingPage';
 export { default as ChooseDatePage } from './ChooseDatePage';
 export { default as DetailPostPage } from './DetailPostPage';
+export { default as MyPage } from './MyPage';

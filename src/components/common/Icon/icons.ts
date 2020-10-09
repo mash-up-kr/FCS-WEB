@@ -9,3 +9,4 @@ export { default as cloud } from './icons/ic_cloud.svg';
 export { default as rain } from './icons/ic_rain.svg';
 export { default as snow } from './icons/ic_snow.svg';
 export { default as thunder } from './icons/ic_thunder.svg';
+export { default as profileEdit } from './icons/IC_profile_edit.svg';

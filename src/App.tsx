@@ -11,6 +11,7 @@ import {
   LoginPage,
   SignupPage,
   SignupSettingPage,
+  MyPage,
 } from './pages';
 import RouteWithTabs from './layouts/RouteWithTab';
 
@@ -28,6 +29,7 @@ const App: React.FC = () => (
         <Route path="/login" component={LoginPage} />
         <Route path="/signup/username" component={SignupPage} />
         <Route path="/signup/style" component={SignupSettingPage} />
+        <Route path="/mypage" component={MyPage} />
       </Switch>
     </BrowserRouter>
   </>
