@@ -1,13 +1,13 @@
 import React, { useMemo } from 'react';
 import Back from '../../../../assets/ic_navigation_back.png';
 import styled from 'styled-components';
-import { gray8 } from '../../../../utils/color';
+import { gray8 } from '../../../utils/color';
 
 interface Props {
   title?: string;
   leftBtn?: React.ReactElement<{ style: React.CSSProperties }>;
   rightBtn?: React.ReactElement<{ style: React.CSSProperties }>;
-  children: any;
+  children?: any;
 }
 
 const ModifyInfoHeader = React.memo<Props>(props => {
@@ -41,10 +41,11 @@ const ModifyInfoHeader = React.memo<Props>(props => {
 });
 
 const HeaderContainer = styled.div`
-  height: 50px;
-  width: 100vw;
   display: flex;
   flex-direction: row;
+  align-items: center;
+  margin: 0px 26px 0px 20px;
+  padding: 12px 0px 11px 0px;
 `;
 
 const Title = styled.div`

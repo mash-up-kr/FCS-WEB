@@ -1,6 +1,6 @@
 import React from 'react';
 import styled from 'styled-components';
-import { gray7 } from '../../utils/color';
+import { gray7, keyColor } from '../../utils/color';
 
 interface NameFieldProps {
   value: string;
@@ -12,7 +12,7 @@ const NameField: React.FC<NameFieldProps> = props => {
 
   return (
     <Wrapper {...otherProps}>
-      <InputField id="name" type="text" value={value} onChange={onChange} placeholder="닉네임" />
+      <InputField id="name" type="text" value={value} onChange={onChange} />
     </Wrapper>
   );
 };
@@ -30,6 +30,12 @@ const InputField = styled.input`
   font-weight: normal;
   font-stretch: normal;
   cursor: pointer;
+
+  &:focus {
+    border: none;
+    border-bottom: 2px solid ${keyColor};
+    outline: none;
+  }
 `;
 
 export default NameField;

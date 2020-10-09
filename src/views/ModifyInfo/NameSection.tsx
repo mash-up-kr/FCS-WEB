@@ -2,9 +2,14 @@ import React, { useState, useCallback } from 'react';
 import styled from 'styled-components';
 import { gray10, blue } from '../../utils/color';
 import NameField from '../../components/Modify/NameField';
+import { useSignupState, useSampleDispatch } from '../../stores/Signup';
 
-const NameSection: React.FC = () => {
-  const [value, setValue] = useState('');
+const NameSection: React.FC = props => {
+  // const { value, onChange, ...otherProps } = props;
+  const state = useSignupState();
+  const [value, setValue] = useState(state.nickname);
+
+  const dispatch = useSampleDispatch();
 
   const handleNameChange = useCallback((event: React.ChangeEvent<HTMLInputElement>): void => {
     setValue(event.target.value);
@@ -13,8 +18,9 @@ const NameSection: React.FC = () => {
   return (
     <Wrapper>
       <Title>닉네임</Title>
-      <NameField value="bom2" onChange={handleNameChange} />
-      {value ? <CheckDuplicate>가능한 닉네임 입니다</CheckDuplicate> : <div />}
+      <NameField value={state.nickname} onChange={handleNameChange} />
+      {state.nickname}
+      <CheckDuplicate>가능한 닉네임 입니다.</CheckDuplicate>
     </Wrapper>
   );
 };
@@ -22,9 +28,11 @@ const NameSection: React.FC = () => {
 
 const Wrapper = styled.div`
   height: 21px;
-  width: 100vw;
   display: flex;
   flex-direction: row;
+  margin: 21px 20px 20px 20px;
+  align-items: center;
+  justify-content: space-between;
 `;
 
 const Title = styled.div`
@@ -37,6 +45,6 @@ const CheckDuplicate = styled.div`
   font-family: SpoqaHanSans;
   font-size: 10px;
   font-weight: normal;
-  font-color: ${blue};
+  color: ${blue};
 `;
 export default NameSection;

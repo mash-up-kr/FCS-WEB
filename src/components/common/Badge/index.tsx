@@ -5,7 +5,7 @@ import { BadgeColors, BadgeTextColors } from './interface';
 interface BadgeProps {
   children: string;
   color: 'active' | 'disabled';
-  onClick?: () => void;
+  onClick?: (e: React.MouseEvent<HTMLDivElement, MouseEvent>) => void;
 }
 
 export const Badge: React.FC<BadgeProps> = props => {

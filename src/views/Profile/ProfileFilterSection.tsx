@@ -19,9 +19,6 @@ interface Profile {
 
 export const ProfileFilterSection = React.memo<Profile>((props: any) => {
   const [value, setValue] = useState<number[]>([]);
-  const [checked, setChecked] = useState(false);
-
-  const state = useSignupState();
   const dispatch = useSampleDispatch();
 
   const styles = [
@@ -49,11 +46,16 @@ export const ProfileFilterSection = React.memo<Profile>((props: any) => {
   const toggleStyle = useCallback(
     (style: Styles) => {
       const isStyleActive = value.includes(style.id);
+
       if (isStyleActive) {
         // setValue({ ...value, id: value.id.filter(id => id !== style.id) });
         setValue(without(value, style.id));
       } else {
         setValue([...value, style.id]); // 선택한 값에 추가
+        value.sort(function(a, b) {
+          return a - b;
+        });
+        console.log(value);
       }
     },
     [value, setValue]
@@ -67,9 +69,9 @@ export const ProfileFilterSection = React.memo<Profile>((props: any) => {
 
       return (
         <StyleBadge
-          onClick={() => {
+          onClick={e => {
+            e.preventDefault();
             toggleStyle(style);
-            console.log(value);
             setStyleIds();
           }}
           key={style.id}

@@ -21,6 +21,7 @@ const SignupSettingContainer: React.FC = () => {
         uid: state.uid,
         authType: state.authType,
         nickname: state.nickname,
+        profileImageUrl: state.profileImageUrl,
         styleIds: state.styleIds,
       })
       .then(function(response) {
@@ -31,6 +32,9 @@ const SignupSettingContainer: React.FC = () => {
       });
   };
 
+  const clickhandler = () => {
+    console.log(state.styleIds);
+  };
   return (
     <Container>
       <ProfileFilterSection username={state.nickname} />

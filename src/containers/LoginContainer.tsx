@@ -15,7 +15,6 @@ const LoginContainer: React.FC = props => {
       <LoginButton icon={kakaoLoginIcon}>
         {isLogin ? <span>로그아웃</span> : <span>카카오계정으로 시작하기</span>}
       </LoginButton>
-      <h2>hello</h2>
     </Container>
   );
 };

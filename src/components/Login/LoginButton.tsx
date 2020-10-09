@@ -21,12 +21,14 @@ const LoginButton: React.FC<LoginButtonProps> = (props, loginHandler) => {
   const dispatch = useSampleDispatch();
 
   const responseKaKao = (res: any) => {
-    console.log(res);
-    console.log(res.profile.id);
-
+    // console.log(res);
+    // console.log(res.profile.id);
+    // console.log(res.profile.kakao_account.profile.profile_image_url);
     setIsLogin(true);
     const setUid = () => dispatch({ type: 'SET_UID', uid: res.profile.id });
     const setAuthType = () => dispatch({ type: 'SET_AUTHTYPE', authType: 'KAKAO' });
+    const setProfileImage = () =>
+      dispatch({ type: 'SET_PROFILEIMAGE', profileImgaeUrl: res.profile.kakao_account.profile.profile_image_url });
     axios
       .post(`${API_SERVER_PATH}/users/sign-in`, {
         uid: res.profile.id,
@@ -38,10 +40,11 @@ const LoginButton: React.FC<LoginButtonProps> = (props, loginHandler) => {
       })
       .catch(function(error) {
         console.log(error);
+        console.log('바보');
         history.push('/signup/username');
         setUid();
         setAuthType();
-        console.log('전송');
+        setProfileImage();
       });
   };
 

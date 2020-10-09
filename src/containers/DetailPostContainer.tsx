@@ -1,4 +1,4 @@
-import React, { useContext, useMemo } from 'react';
+import React, { useContext, useMemo, useState } from 'react';
 import { useParams } from 'react-router';
 import styled from 'styled-components';
 import { Badge } from '../components/common/Badge';
@@ -8,6 +8,8 @@ import { RatioImage } from '../components/common/RatioImage';
 import { FeedContext } from '../stores/Feed';
 import { StyleContext } from '../stores/Styles/index';
 import { gray1, gray8, gray9 } from '../utils/color';
+import { useHistory } from 'react-router-dom';
+import { Link } from 'react-router-dom';
 
 interface Params {
   id: string;
@@ -23,6 +25,12 @@ const PostContainer = React.memo(() => {
 
   const { feeds } = useContext(FeedContext);
   const { styles } = useContext(StyleContext);
+  // 피드 정보 확인 api에 유저 프로필사진 누락
+  const history = useHistory();
+
+  const handlePrevClick = (): void => {
+    history.goBack();
+  };
 
   const data = useMemo(() => {
     //memo(@kirby): 왠지 모르겠는데 type number인거로 추정
@@ -56,11 +64,17 @@ const PostContainer = React.memo(() => {
   return (
     <Container>
       <Header>
-        <BackBtn icon="back" />
+        <BackBtn icon="back" onClick={handlePrevClick} />
         <Title>게시물 보기</Title>
       </Header>
       <UserSection>
+        <UserProfile src={data.photoUrl} alt="profile" />
         <UserNickName>{data.nickname}</UserNickName>
+        <EtcAction>
+          <Dot />
+          <Dot />
+          <Dot />
+        </EtcAction>
       </UserSection>
       <StyleSection>{styleBadges}</StyleSection>
       <RatioImage src={data.photoUrl} alt="thumbnail"></RatioImage>
@@ -72,6 +86,10 @@ const PostContainer = React.memo(() => {
         </WeatherSection>
         <Content>{data.message}</Content>
       </CardContent>
+      <Comment>댓글보기 +2</Comment>
+      <Link key={data.id} to={`/comments/${data.id}`}>
+        <Comment>댓글보기 +2</Comment>
+      </Link>
     </Container>
   );
 });
@@ -101,14 +119,36 @@ const BackBtn = styled(Icon)`
 `;
 
 const UserSection = styled.div`
-  padding: 8px 20px;
+  padding: 8px 9px 8px 20px;
+  display: flex;
 `;
 
+const UserProfile = styled.img`
+  width: 24px;
+  height: 24px;
+  background-color: #c4c4c4;
+  border-radius: 50%;
+  margin-right: 10px;
+`;
 const UserNickName = styled.div`
   font-size: 14px;
   font-weight: bold;
 `;
-
+const EtcAction = styled.div`
+  width: 24px;
+  height: 24px;
+  display: flex;
+  align-items: center;
+  justify-content: space-around;
+  position: absolute;
+  right: 9px;
+`;
+const Dot = styled.div`
+  width: 3px;
+  height: 3px;
+  border-radius: 50%;
+  background-color: ${gray8};
+`;
 const Title = styled.div`
   color: ${gray8};
   margin-left: auto;
@@ -122,7 +162,6 @@ const Title = styled.div`
 
 const CardContent = styled.div`
   padding: 20px;
-  border-bottom: 2px solid ${gray1};
 `;
 
 const WeatherSection = styled.div`
@@ -145,4 +184,14 @@ const Content = styled.div`
 
 const HeartIcon = styled(Icon)`
   margin-left: auto;
+`;
+
+const Comment = styled.div`
+  font-family: SpoqaHanSans;
+  font-size: 12px;
+  font-weight: bold;
+  font-color: ${gray9};
+  float: right;
+  margin-right: 20px;
+  margin-bottom: 70px;
 `;

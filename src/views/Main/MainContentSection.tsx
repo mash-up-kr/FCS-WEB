@@ -8,14 +8,14 @@ import { Description, Rectangle } from './MainCommonUI';
 const MainContentSection: React.FC = React.memo(() => (
   <MainContentContainer>
     <AreaName>서울 용산구</AreaName>
-    <Description>20년 6월 21일 화요일</Description>
-    <TempHeading>24°</TempHeading>
+    <Description>20년 10월 10일 토요일</Description>
+    <TempHeading>15°</TempHeading>
     <Thumbnail src={SUN} alt="thumbnail" />
     <TemperatureSection>
-      <MainDescription className="temp-min">18°</MainDescription>
+      <MainDescription className="temp-min">11°</MainDescription>
       <Rectangle />
-      <MainDescription className="temp-max">32°</MainDescription>
-      <MainDescription>체감온도 31°</MainDescription>
+      <MainDescription className="temp-max">24°</MainDescription>
+      <MainDescription>체감온도 15°</MainDescription>
     </TemperatureSection>
     <IndicatorSection>
       <div>
@@ -27,7 +27,7 @@ const MainContentSection: React.FC = React.memo(() => (
         <IndicatorDescription>강수량 75mm</IndicatorDescription>
       </div>
     </IndicatorSection>
-    <UpdateDescription>업데이트 6/21 오전 7:00</UpdateDescription>
+    <UpdateDescription>업데이트 10/10 오전 7:00</UpdateDescription>
   </MainContentContainer>
 ));
 

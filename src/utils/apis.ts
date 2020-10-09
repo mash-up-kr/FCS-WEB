@@ -39,4 +39,14 @@ const getStyles: any = async () => {
   return response;
 };
 
-export default { getFeeds, getStyles };
+const getComment: any = async () => {
+  const response = await axios({
+    method: HttpMethod.GET,
+    url: `${API_SERVER_PATH}/comments/8`,
+    headers: {
+      Authorization: 'eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJpZCI6MX0.xoeHyHhyME0Wz-xPezwnzkuR94ZZAf1hDCy4pPDJR-s',
+    },
+  });
+};
+
+export default { getFeeds, getStyles, getComment };

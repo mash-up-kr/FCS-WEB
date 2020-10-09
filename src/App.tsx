@@ -12,6 +12,7 @@ import {
   SignupPage,
   SignupSettingPage,
   ModifyInfoPage,
+  CommentPage,
 } from './pages';
 import ModifyInfoContainer from './containers/ModifyInfoContainer';
 import RouteWithTabs from './layouts/RouteWithTab';
@@ -28,12 +29,13 @@ const App: React.FC = () => (
         <Route path="/post/date" component={ChooseDatePage} />
         <Route path="/post/location" component={ChooseLocationPage} />
         <Route path="/post/setting" component={PostSettingPage} />
+        <Route path="/comment/:id" component={CommentPage} />
         <SignupProvider>
           <Route path="/login" component={LoginPage} />
           <Route path="/signup/username" component={SignupPage} />
           <Route path="/signup/style" component={SignupSettingPage} />
+          <Route path="/modifyInfo" component={ModifyInfoPage} />
         </SignupProvider>
-        <Route path="/modifyInfo" component={ModifyInfoPage} />
       </Switch>
     </BrowserRouter>
   </>

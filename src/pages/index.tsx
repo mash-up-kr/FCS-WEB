@@ -8,3 +8,4 @@ export { default as PostSettingPage } from './PostSettingPage';
 export { default as ChooseDatePage } from './ChooseDatePage';
 export { default as DetailPostPage } from './DetailPostPage';
 export { default as ModifyInfoPage } from './ModifyInfoPage';
+export { default as CommentPage } from './CommentPage';

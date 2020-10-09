@@ -1,31 +1,3 @@
-// import React, {createContext, useState} from 'react';
-
-// export type SignupProps = {
-//   uid: number;
-//   authType : string;
-//   nickname : string;
-//   styleIds: []
-// }
-
-// const SignupContext = createContext<SignupProps | undefined>(undefined);
-
-// const SignupProvider: React.FC<SignupProps> = ({children}) => {
-//   const [uid, setUid] = useState(0);
-//   const [authType, setAuthType] = useState('KAKAO');
-//   const [nickname, setNickname] = useState('');
-//   const [styleIds, setStyleIds] = useState([] as any);
-
-//   const value={uid, authType, nickname, styleIds}
-
-//   return<SignupContext.Provider value={ {uid, authType, nickname, styleIds}}>{children}</SignupContext.Provider>
-// }
-
-// const {Consumer: SignupConsumer} = SignupContext;
-
-// export {SignupConsumer, SignupProvider};
-
-// export default SignupContext;
-
 import React, { useReducer, useContext, createContext, Dispatch } from 'react';
 
 // 상태를 위한 타입
@@ -33,6 +5,7 @@ type State = {
   uid: number;
   authType: string;
   nickname: string;
+  profileImageUrl: string;
   styleIds: number[];
 };
 
@@ -41,6 +14,7 @@ type Action =
   | { type: 'SET_UID'; uid: number }
   | { type: 'SET_AUTHTYPE'; authType: string }
   | { type: 'SET_NICKNAME'; nickname: string }
+  | { type: 'SET_PROFILEIMAGE'; profileImgaeUrl: string }
   | { type: 'SET_STYLEIDS'; styleIds: number[] };
 
 // 디스패치를 위한 타입 (Dispatch 를 리액트에서 불러올 수 있음), 액션들의 타입을 Dispatch 의 Generics로 설정
@@ -68,6 +42,11 @@ function reducer(state: State, action: Action): State {
         ...state,
         nickname: action.nickname,
       };
+    case 'SET_PROFILEIMAGE':
+      return {
+        ...state,
+        profileImageUrl: action.profileImgaeUrl,
+      };
     case 'SET_STYLEIDS':
       return {
         ...state,
@@ -85,6 +64,7 @@ export function SignupProvider({ children }: { children: React.ReactNode }) {
     uid: 0,
     authType: 'KAKAO',
     nickname: '',
+    profileImageUrl: '',
     styleIds: [],
   });
 
