@@ -5,6 +5,8 @@ import { Icon } from '../components/common/Icon';
 import { Badge } from '../components/common/Badge';
 import { gray8, keyColor, gray9, blue, gray7, gray1, red } from '../utils/color';
 import Axios from 'axios';
+import defaultProfilePhoto from '../components/common/Icon/icons/IC_profile_edit.svg';
+
 const { includes, without, throttle } = require('lodash');
 
 interface Styles {
@@ -17,6 +19,7 @@ const MypageContainer: React.FC = () => {
   const [checked, setChecked] = useState(false);
   const [nickname, setNickname] = useState('');
   const [photo, setPhoto] = useState('');
+  const [preview, setPreview] = useState();
   const [isDuplicateUser, setIsDuplicateUser] = useState(true);
 
   const handleStyle = () => setChecked(true);
@@ -42,8 +45,6 @@ const MypageContainer: React.FC = () => {
     { id: 18, name: '캠퍼스룩' },
     { id: 19, name: '힙합' },
   ];
-
-  useEffect(() => {}, [nickname]);
 
   const toggleStyle = useCallback(
     (style: Styles) => {
@@ -79,11 +80,9 @@ const MypageContainer: React.FC = () => {
 
   const handleOnChange = async (e: any) => {
     setNickname(e.target.value);
-
     if (!nickname) {
       return;
     }
-
     const res = await Axios.get(`http://52.78.79.159:8080/api/users/nickname/check/${nickname}`);
 
     if (res.data.code === 4900) {
@@ -91,6 +90,58 @@ const MypageContainer: React.FC = () => {
     } else if (res.data.code === 200) {
       setIsDuplicateUser(true);
     }
+  };
+
+  const putStyleRes = async (styleIds: number[]) => {
+    const res = await Axios.put(
+      `http://52.78.79.159:8080/api/users/styles`,
+      {
+        styleIds,
+      },
+      {
+        headers: {
+          'Content-Type': 'application/json',
+          Authorization: 'eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJpZCI6MX0.xoeHyHhyME0Wz-xPezwnzkuR94ZZAf1hDCy4pPDJR-s',
+          'Access-Control-Allow-Origin': '*',
+        },
+      }
+    );
+    console.log(res);
+    return res;
+  };
+
+  const putNicknameRes = async (nickname: String) => {
+    return await Axios.put(
+      `http://52.78.79.159:8080/api/users/nickname`,
+      {
+        nickname: nickname,
+      },
+      {
+        headers: {
+          'Content-Type': 'application/json',
+          Authorization: 'eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJpZCI6MX0.xoeHyHhyME0Wz-xPezwnzkuR94ZZAf1hDCy4pPDJR-s',
+          'Access-Control-Allow-Origin': '*',
+        },
+      }
+    );
+  };
+
+  const putProfileImgRes = async (photo: string) => {
+    const formData = new FormData();
+    formData.append('profileImage', photo);
+
+    return await Axios.post(`http://52.78.79.159:8080/api/users/profile-image`, formData, {
+      headers: {
+        'Content-Type': 'multipart/form-data',
+        Authorization: 'eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJpZCI6MX0.xoeHyHhyME0Wz-xPezwnzkuR94ZZAf1hDCy4pPDJR-s',
+      },
+    });
+  };
+
+  const submitUserInfo = () => {
+    Axios.all([putStyleRes(value), putNicknameRes(nickname), putProfileImgRes(photo)]).catch((error: Error) =>
+      console.log(error)
+    );
   };
 
   const renderNicknameDuplicateFeedbackMessage = () => {
@@ -103,6 +154,17 @@ const MypageContainer: React.FC = () => {
     }
   };
 
+  const addFile = (event: any): void => {
+    const reader = new FileReader();
+    const file = event.target.files[0];
+
+    reader.onloadend = () => {
+      setPhoto(file);
+      setPreview(reader.result);
+    };
+    reader.readAsDataURL(file);
+  };
+
   return (
     <Wrapper>
       <Header>
@@ -110,19 +172,15 @@ const MypageContainer: React.FC = () => {
           <BackIcon icon="back" />
         </BackBtn>
         <Title>내정보 수정</Title>
-        <SaveIcon to="/">저장</SaveIcon>
+        <SaveIcon to="/" onClick={submitUserInfo}>
+          저장
+        </SaveIcon>
       </Header>
-      <ProfileEditIcon icon="profileEdit" />
+      <UploadPhotoLabel htmlFor="file" photo={preview} />
+      <UploadPhotoInput id="file" type="file" name="photo" accept="image/*" onChange={addFile} />
       <NicknameSection>
         <Text>닉네임</Text>
-        <Form>
-          <NicknameTextArea
-            type="text"
-            id="nicknameInput"
-            placeholder="닉네임을 입력하세요"
-            onChange={handleOnChange}
-          />
-        </Form>
+        <NicknameTextArea type="text" id="nicknameInput" placeholder="닉네임을 입력하세요" onChange={handleOnChange} />
         {renderNicknameDuplicateFeedbackMessage()}
       </NicknameSection>
       <Contour />
@@ -134,6 +192,44 @@ const MypageContainer: React.FC = () => {
     </Wrapper>
   );
 };
+
+const UploadPhotoLabel = styled.label<{ photo: string }>`
+  width: 96px;
+  height: 96px;
+  margin: 15px auto 21px;
+  ::after {
+    content: '';
+    display: block;
+    padding-bottom: 100%;
+  }
+  .inner {
+    position: absolute;
+    width: 100%;
+    height: 100%;
+  }
+  background-image: url(${props => (props.photo ? props.photo : defaultProfilePhoto)});
+  background-size: 96px;
+  padding: 0.5em 0.75em;
+  color: #999;
+  font-size: inherit;
+  line-height: normal;
+  vertical-align: middle;
+  background-color: #fdfdfd;
+  cursor: pointer;
+  border-radius: ${props => (props.photo ? '70%' : '0%')};
+`;
+
+const UploadPhotoInput = styled.input`
+  height: 1px;
+  width: 1px;
+  background-color: gray;
+  position: absolute;
+  padding: 0;
+  margin: -1px;
+  overflow: hidden;
+  clip: rect(0, 0, 0, 0);
+  border: 0;
+`;
 
 const Form = styled.form`
   height: 21px;
