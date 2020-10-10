@@ -25,7 +25,7 @@ interface Params {
 const Comment: React.FC = props => {
   // const {postid, ...otherProps} = props;
   const [commentValue, setCommentValue] = useState('');
-  const [CommentList, setCommentList] = useState([]);
+  const [CommentList, setCommentList] = useState<any[]>([]);
 
   const { id } = useParams<Params>();
 
@@ -87,7 +87,7 @@ const Comment: React.FC = props => {
       })
       .then(response => {
         if (response.status === 200) {
-          setCommentList(response.data);
+          setCommentList(response.data.data);
         } else {
           alert('Failed to get video Info');
         }
@@ -97,13 +97,18 @@ const Comment: React.FC = props => {
   return (
     <Container>
       <Header>
-        <BackBtn icon="close" onClick={() => console.log(CommentList)} />
+        <BackBtn icon="close" onClick={handlePrevClick} />
         <Title>댓글보기</Title>
       </Header>
-      {/* {CommentList && CommentList.map(comment => (
-        <SingleComment />
-      ))} */}
-      <SingleComment />
+      {CommentList &&
+        CommentList.map(comment => (
+          <SingleComment
+            key={comment.id}
+            nickname={comment.userNickname}
+            date={comment.createdDate}
+            content={comment.message}
+          />
+        ))}
       <Wrapper>
         <InputBox placeholder="댓글 작성하기..." value={commentValue} onChange={handleChange} />
         {commentValue ? (

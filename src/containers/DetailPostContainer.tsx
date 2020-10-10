@@ -88,7 +88,7 @@ const DetailPostContainer = React.memo(() => {
       </CardContent>
       <Comment>
         <Link key={data.id} to={`/comments/${data.id}`}>
-          <CommentBox>댓글보기 +2</CommentBox>
+          <CommentBox>댓글보기</CommentBox>
         </Link>
       </Comment>
     </Container>
