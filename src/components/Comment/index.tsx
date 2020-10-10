@@ -1,4 +1,5 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, useContext, useMemo } from 'react';
+import { useParams } from 'react-router';
 import styled from 'styled-components';
 import { gray1, gray3, gray4, keyColor } from '../../utils/color';
 import SendDisable from '../../assets/ic-upload-disable.svg';
@@ -10,16 +11,37 @@ import { gray8 } from '../../utils/color';
 import { useHistory } from 'react-router-dom';
 import SingleComment from './SingleComment';
 import api from '../../utils/apis';
+import { CommentContext } from '../../stores/Comments';
 
 enum HttpMethod {
   GET = 'GET',
   POST = 'POST',
 }
 
+interface Params {
+  id: string;
+}
+
 const Comment: React.FC = props => {
   // const {postid, ...otherProps} = props;
   const [commentValue, setCommentValue] = useState('');
-  const [comments, setComments] = useState([]);
+  const [CommentList, setCommentList] = useState([]);
+
+  const { id } = useParams<Params>();
+
+  const { comments } = useContext(CommentContext);
+
+  // const data = useMemo(() => {
+  //   const comment = comments?.find(comment => comment.id.toString() === id);
+
+  //   return comment ?? null;
+  // }, [id, comments]);
+  const data = useMemo(() => {
+    //memo(@kirby): 왠지 모르겠는데 type number인거로 추정
+    const comment = comments?.find(comment => comment.id.toString() === id);
+
+    return comment ?? null;
+  }, [id, comments]);
 
   const handleChange = (event: React.FormEvent<HTMLInputElement>) => {
     setCommentValue(event.currentTarget.value);
@@ -42,13 +64,11 @@ const Comment: React.FC = props => {
     //TODO: POSTID받아오기
     //useid 안보내도 되는건가,,?
     axios
-      .post(`http://52.78.79.159:8080/api/comments/8`, variables, {
+      .post(`http://52.78.79.159:8080/api/comments/${id}`, variables, {
         headers: headers,
       })
       .then(response => {
         if (response.status === 201) {
-          console.log('댓글등록했다!');
-          console.log(response);
           setCommentValue('');
         } else {
           alert('댓글저장실패');
@@ -57,24 +77,32 @@ const Comment: React.FC = props => {
   };
 
   useEffect(() => {
-    const getComment: any = async () => {
-      const response = await axios({
-        method: HttpMethod.GET,
-        url: `${API_SERVER_PATH}/comments/8`,
-        headers: {
-          Authorization: 'eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJpZCI6MX0.xoeHyHhyME0Wz-xPezwnzkuR94ZZAf1hDCy4pPDJR-s',
-        },
-      });
-      console.log(response);
+    const headers = {
+      'Content-Type': 'application/json',
+      Authorization: 'eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJpZCI6MX0.xoeHyHhyME0Wz-xPezwnzkuR94ZZAf1hDCy4pPDJR-s',
     };
-  });
+    axios
+      .get(`http://52.78.79.159:8080/api/comments/${id}`, {
+        headers: headers,
+      })
+      .then(response => {
+        if (response.status === 200) {
+          setCommentList(response.data);
+        } else {
+          alert('Failed to get video Info');
+        }
+      });
+  }, [CommentList, id]);
 
   return (
     <Container>
       <Header>
-        <BackBtn icon="close" onClick={handlePrevClick} />
+        <BackBtn icon="close" onClick={() => console.log(CommentList)} />
         <Title>댓글보기</Title>
       </Header>
+      {/* {CommentList && CommentList.map(comment => (
+        <SingleComment />
+      ))} */}
       <SingleComment />
       <Wrapper>
         <InputBox placeholder="댓글 작성하기..." value={commentValue} onChange={handleChange} />

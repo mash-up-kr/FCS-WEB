@@ -1,9 +1,8 @@
 import React from 'react';
-import styled from 'styled-components';
-import { white, keyColor } from '../../../../utils/color';
 import { Link } from 'react-router-dom';
+import styled from 'styled-components';
 import Close from '../../../../assets/ic_navigation_close.png';
-import Back from '../../../../assets/ic_navigation_back.png';
+import { keyColor, white } from '../../../../utils/color';
 
 const PostHeader: React.FC = () => (
   <Wrapper>

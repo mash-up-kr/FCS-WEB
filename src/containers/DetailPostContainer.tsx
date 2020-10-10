@@ -20,7 +20,7 @@ interface Styles {
   name: string;
 }
 
-const PostContainer = React.memo(() => {
+const DetailPostContainer = React.memo(() => {
   const { id } = useParams<Params>();
 
   const { feeds } = useContext(FeedContext);
@@ -86,17 +86,20 @@ const PostContainer = React.memo(() => {
         </WeatherSection>
         <Content>{data.message}</Content>
       </CardContent>
-      <Comment>댓글보기 +2</Comment>
-      <Link key={data.id} to={`/comments/${data.id}`}>
-        <Comment>댓글보기 +2</Comment>
-      </Link>
+      <Comment>
+        <Link key={data.id} to={`/comments/${data.id}`}>
+          <CommentBox>댓글보기 +2</CommentBox>
+        </Link>
+      </Comment>
     </Container>
   );
 });
 
-export default PostContainer;
+export default DetailPostContainer;
 
-const Container = styled.div``;
+const Container = styled.div`
+  height: 100%;
+`;
 
 const Header = styled.header`
   display: flex;
@@ -161,7 +164,7 @@ const Title = styled.div`
 `;
 
 const CardContent = styled.div`
-  padding: 20px;
+  padding: 15px;
 `;
 
 const WeatherSection = styled.div`
@@ -180,6 +183,7 @@ const Content = styled.div`
   font-size: 14px;
   color: ${gray9};
   margin-top: 10px;
+  z-index: 1;
 `;
 
 const HeartIcon = styled(Icon)`
@@ -187,11 +191,14 @@ const HeartIcon = styled(Icon)`
 `;
 
 const Comment = styled.div`
+  height: 85px;
+  margin-right: 20px;
+`;
+
+const CommentBox = styled.div`
   font-family: SpoqaHanSans;
   font-size: 12px;
   font-weight: bold;
-  font-color: ${gray9};
+  color: ${gray9};
   float: right;
-  margin-right: 20px;
-  margin-bottom: 70px;
 `;

@@ -1,12 +1,11 @@
 import React, { useCallback, useState, useContext } from 'react';
 import { useHistory } from 'react-router-dom';
-import { RouteComponentProps } from 'react-router';
 import styled from 'styled-components';
-import { gray6, gray8 } from '../utils/color';
+import { Button } from '../components/common/Button';
 import NameField from '../components/Signup';
 import Checkbox from '../components/Signup/CheckBox/Checkbox';
-import { Button } from '../components/common/Button';
 import { useSignupState, useSampleDispatch } from '../stores/Signup';
+import { gray6, gray8 } from '../utils/color';
 
 const SignupContainer: React.FC = () => {
   const [value, setValue] = useState('');

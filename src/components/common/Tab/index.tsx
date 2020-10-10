@@ -1,11 +1,10 @@
 import React from 'react';
+import { Link } from 'react-router-dom';
 import styled from 'styled-components';
 import tabHome from '../../../assets/IC_Menu_Feed_normal.svg';
-import tabPlus from '../../../assets/IC_Menu_Plus_normal.svg';
 import tabMypage from '../../../assets/IC_Menu_My_normal.svg';
+import tabPlus from '../../../assets/IC_Menu_Plus_normal.svg';
 import { white } from '../../../utils/color';
-import { Link } from 'react-router-dom';
-import { url } from 'inspector';
 // import { tabPlus, tabMypage } from '../../../views/assets';
 
 export const Tab: React.FC = () => (
